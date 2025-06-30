@@ -1,0 +1,33 @@
+📂 public
+├── 🖼️ images/ # Imágenes usadas en la app (logos, iconos, fotos, etc.)
+└── 📄 vite.svg # Archivo estático (ejemplo vite)
+
+📂 src
+├── 🏢 admin/ # Parte administrativa del sistema
+│ └── 📄 react.svg # Ejemplo archivo estático para admin
+
+├── 🧩 components/ # Componentes reutilizables y modulares para toda la app
+
+├── 🌐 context/ # Contextos React para manejar estados globales y compartidos
+
+├── 📄 pages/ # Páginas principales de la aplicación (vistas completas)
+│ └── 🏠 Home.jsx # Página Home
+
+├── 🔧 services/ # Lógica para consumir APIs y manejar servicios (fetch, axios, etc.)
+│ ├── 🔐 authService.js
+│ ├── 📅 citasServices.js
+│ ├── 🩺 consultasMedicasService.js
+│ ├── 🆔 DNI-Service.js
+│ ├── 📋 especialidadesServices.js
+│ ├── 📖 historialClinicoService.js
+│ ├── 👨‍⚕️ medicoService.js
+│ ├── 👥 pacientes.js
+│ └── 🧑‍⚕️ personalClinico.js
+
+├── 🎨 styles/ # Estilos globales y específicos (CSS, SCSS, etc.)
+
+├── ⚛️ App.jsx # Componente raíz de React
+
+├── 🚀 main.jsx # Punto de entrada para inicializar la app React
+
+└── ⚙️ .env # Variables de entorno para configuración
