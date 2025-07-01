@@ -1,7 +1,14 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Home = () => {
-    return <h1>Hola desde Home</h1>;
-};
+function Home() {
+  return (
+    <div>
+      <h1>Bienvenido a la clínica</h1>
+      <Link to="/login-paciente">
+        <button>Iniciar sesión</button>
+      </Link>
+    </div>
+  );
+}
 
 export default Home;
