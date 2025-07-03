@@ -24,7 +24,7 @@ function LoginPaciente() {
             localStorage.setItem("token", token);
             localStorage.setItem("token_expiration", expiration);
 
-            navigate("/paciente/inicio");
+            navigate("/paciente-inicio");
         } catch (err) {
             console.error("Error al iniciar sesión:", err);
             setError("DNI o contraseña incorrectos");
