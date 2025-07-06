@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   obtenerEspecialidades,
   eliminarEspecialidad
@@ -13,8 +13,8 @@ function Especialidades() {
 
   const cargarEspecialidades = () => {
     obtenerEspecialidades()
-      .then((data) => setEspecialidades(data.data))
-      .catch((error) => console.error('Error al obtener especialidades:', error));
+      .then(({ data }) => setEspecialidades(data))
+      .catch(e => console.error('Error al obtener especialidades:', e));
   };
 
   useEffect(() => {
@@ -45,56 +45,67 @@ function Especialidades() {
   };
 
   return (
-    <div className="container py-4">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2>Especialidades Registradas</h2>
-        <button className="btn btn-success" onClick={abrirCrear}>
-          Registrar Especialidad
-        </button>
-      </div>
+    <div className="container-fluid py-4 px-3">
+      <div className="card shadow rounded">
+        <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <h4 className="mb-0">Especialidades Registradas</h4>
+          <button className="btn btn-outline-light btn" onClick={abrirCrear}>
+            Registrar
+          </button>
+        </div>
 
-      <div className="table-responsive">
-        <table className="table table-bordered table-striped align-middle">
-          <thead className="table-dark text-center">
-            <tr>
-              <th>#</th>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Imagen</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {especialidades.map((especialidad, index) => (
-              <tr key={especialidad.id_especialidad}>
-                <td>{index + 1}</td>
-                <td>{especialidad.nombre}</td>
-                <td>{especialidad.descripcion}</td>
-                <td className="text-center">
-                  <img
-                    src={`data:image/jpeg;base64,${especialidad.imagen}`}
-                    alt={especialidad.nombre}
-                    style={{ width: '80px', height: '80px', objectFit: 'cover' }}
-                  />
-                </td>
-                <td className="text-center">
-                  <button
-                    className="btn btn-warning btn-sm me-2"
-                    onClick={() => abrirEditar(especialidad.id_especialidad)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => handleEliminar(especialidad.id_especialidad)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="card-body p-3">
+          {especialidades.length === 0 ? (
+            <div className="alert alert-info text-center m-0">
+              No hay especialidades registradas.
+            </div>
+          ) : (
+            <div className="table-responsive" style={{ maxHeight: '430px', overflowY: 'auto' }}>
+              <table className="table table-hover table-bordered align-middle mb-0 text-center">
+                <thead className="table-primary sticky-top">
+                  <tr>
+                    <th style={{ width: '5%' }}>#</th>
+                    <th style={{ width: '20%' }}>Nombre</th>
+                    <th style={{ width: '45%' }}>Descripción</th>
+                    <th style={{ width: '15%' }}>Imagen</th>
+                    <th style={{ width: '15%' }}>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {especialidades.map((esp, i) => (
+                    <tr key={esp.id_especialidad}>
+                      <td>{i + 1}</td>
+                      <td className="text-start">{esp.nombre}</td>
+                      <td className="text-start">{esp.descripcion}</td>
+                      <td>
+                        <img
+                          src={`data:image/jpeg;base64,${esp.imagen}`}
+                          alt={esp.nombre}
+                          className="img-thumbnail"
+                          style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+                        />
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-sm btn-warning me-2"
+                          onClick={() => abrirEditar(esp.id_especialidad)}
+                        >
+                          Editar
+                        </button>
+                        <button
+                          className="btn btn-sm btn-danger"
+                          onClick={() => handleEliminar(esp.id_especialidad)}
+                        >
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
 
       {mostrarModal && (

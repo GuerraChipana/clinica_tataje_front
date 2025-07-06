@@ -12,7 +12,7 @@ const AdminHeader = () => {
                 <NavLink to="/admin/especialidades">Especialidades</NavLink>
                 <NavLink to="/admin/medicos">Medicos</NavLink>
                 <NavLink to="/admin/citas">Citas</NavLink>
-                <NavLink to="/admin/reservas">Reservas</NavLink>
+                <NavLink to="/admin/historial">Historial Clinico</NavLink>
                 <NavLink to="/admin/cuenta">Mi Cuenta</NavLink>
                 <NavLink to="/login/personal">Salir</NavLink>
             </nav>

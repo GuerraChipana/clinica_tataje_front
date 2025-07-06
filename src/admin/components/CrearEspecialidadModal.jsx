@@ -55,58 +55,66 @@ function CrearEspecialidadModal({ onClose, onSuccess, modo = 'crear', especialid
     };
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-content card p-4">
-                <h4>{modo === 'crear' ? 'Registrar' : 'Editar'} Especialidad</h4>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label className="form-label">Nombre:</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Nombre"
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
-                            required
-                        />
+        <div className="modal fade show" style={{ display: 'block', background: 'rgba(0,0,0,0.5)' }} tabIndex="-1">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content shadow-lg">
+                    <div className="modal-header bg-primary text-white">
+                        <h5 className="modal-title">
+                            {modo === 'crear' ? 'Registrar' : 'Editar'} Especialidad
+                        </h5>
+                        <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={onClose}></button>
                     </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="modal-body">
+                            <div className="mb-3">
+                                <label className="form-label fw-bold">Nombre:</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Nombre"
+                                    value={nombre}
+                                    onChange={(e) => setNombre(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-                    <div className="mb-3">
-                        <label className="form-label">Descripción:</label>
-                        <textarea
-                            className="form-control"
-                            placeholder="Descripción"
-                            value={descripcion}
-                            onChange={(e) => setDescripcion(e.target.value)}
-                            required
-                        />
-                    </div>
+                            <div className="mb-3">
+                                <label className="form-label fw-bold">Descripción:</label>
+                                <textarea
+                                    className="form-control"
+                                    placeholder="Descripción"
+                                    value={descripcion}
+                                    onChange={(e) => setDescripcion(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-                    <div className="mb-3">
-                        <label className="form-label">
-                            {modo === 'editar' ? 'Nueva Imagen (opcional):' : 'Imagen:'}
-                        </label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            required={modo === 'crear'}
-                        />
-                    </div>
+                            <div className="mb-3">
+                                <label className="form-label fw-bold">
+                                    {modo === 'editar' ? 'Nueva Imagen (opcional):' : 'Imagen:'}
+                                </label>
+                                <input
+                                    type="file"
+                                    className="form-control"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    required={modo === 'crear'}
+                                />
+                            </div>
 
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    {mensaje && <div className="alert alert-success">{mensaje}</div>}
-
-                    <div className="modal-footer">
-                        <button type="submit" className="btn btn-primary">
-                            {modo === 'crear' ? 'Registrar' : 'Actualizar'}
-                        </button>
-                        <button className="btn btn-secondary" onClick={onClose}>
-                            Cancelar
-                        </button>
-                    </div>
-                </form>
+                            {error && <div className="alert alert-danger">{error}</div>}
+                            {mensaje && <div className="alert alert-success">{mensaje}</div>}
+                        </div>
+                        <div className="modal-footer">
+                            <button type="submit" className="btn btn-success">
+                                {modo === 'crear' ? 'Registrar' : 'Actualizar'}
+                            </button>
+                            <button type="button" className="btn btn-secondary" onClick={onClose}>
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

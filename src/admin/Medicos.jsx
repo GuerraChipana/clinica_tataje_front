@@ -1,10 +1,9 @@
-// Medicos.jsx
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  obtenerTodosLosMedicos,
+  obtenerMedicos,
   eliminarMedico,
 } from '../services/medicoService';
-import MedicoModal from './components/MedicoModal';
+import MedicoModal from './components/CrearMedicoModal';
 
 function Medicos() {
   const [medicos, setMedicos] = useState([]);
@@ -14,7 +13,7 @@ function Medicos() {
 
   const cargarMedicos = async () => {
     try {
-      const response = await obtenerTodosLosMedicos();
+      const response = await obtenerMedicos();
       setMedicos(response.data.data);
     } catch (error) {
       console.error('Error al cargar médicos', error);

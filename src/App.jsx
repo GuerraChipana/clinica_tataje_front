@@ -10,7 +10,7 @@ import InicioAdmin from './admin/InicioAdmin.jsx';
 import PersonalClinico from './admin/PersonalClinico.jsx';
 import Pacientes from './admin/Pacientes.jsx';
 import Citas from './admin/Citas.jsx';
-import ReservaCitas from './admin/ReservaCitas.jsx';
+import Historial_Clinico from './admin/Historial_Clinico.jsx';
 import Especialidades from './admin/Especialidades.jsx';
 import MiCuenta from './admin/MiCuenta.jsx';
 import Medicos from './admin/Medicos.jsx';
@@ -32,7 +32,7 @@ function App() {
         <Route path="pacientes" element={<Pacientes />} />
         <Route path="medicos" element={<Medicos />} />
         <Route path="citas" element={<Citas />} />
-        <Route path="reservas" element={<ReservaCitas />} />
+        <Route path="historial" element={<Historial_Clinico />} />
         <Route path="especialidades" element={<Especialidades />} />
         <Route path="cuenta" element={<MiCuenta />} />
       </Route>
