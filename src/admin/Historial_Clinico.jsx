@@ -4,7 +4,7 @@ import { obtenerHistorialPorID } from '../services/historialClinicoService';
 import {
   Container, Row, Col, Card, Form, Button, Alert, Badge, Dropdown, DropdownButton
 } from 'react-bootstrap';
-import { FaMars, FaVenus, FaSearch, FaTimesCircle } from 'react-icons/fa';
+import { FaMars, FaVenus, FaSearch, FaTimesCircle, FaBroom } from 'react-icons/fa';
 import ConsultaPdfButton from './components/ConsultaPdfButton';
 
 function Historial_Clinico() {
@@ -13,13 +13,13 @@ function Historial_Clinico() {
   const [historial, setHistorial] = useState([]);
   const [error, setError] = useState('');
 
-  // filtros adicionales
-  const [filtros, setFiltros] = useState({ motivo: '', fecha: '', medico: '', especialidad: '' });
+  const [filtros, setFiltros] = useState({ fechaDesde: '', fechaHasta: '', medico: '', especialidad: '' });
 
   const buscarHistorial = async () => {
     setError('');
     setPaciente(null);
     setHistorial([]);
+    setFiltros({ fechaDesde: '', fechaHasta: '', medico: '', especialidad: '' });
 
     try {
       const { data } = await getPacientes();
@@ -37,12 +37,16 @@ function Historial_Clinico() {
     }
   };
 
-  const limpiar = () => {
+  const limpiarTodo = () => {
     setDni('');
     setPaciente(null);
     setHistorial([]);
     setError('');
-    setFiltros({ motivo: '', fecha: '', medico: '', especialidad: '' });
+    setFiltros({ fechaDesde: '', fechaHasta: '', medico: '', especialidad: '' });
+  };
+
+  const limpiarFiltros = () => {
+    setFiltros({ fechaDesde: '', fechaHasta: '', medico: '', especialidad: '' });
   };
 
   const renderGeneroIcon = (genero) => {
@@ -54,6 +58,26 @@ function Historial_Clinico() {
   const handleFiltro = (tipo, valor) => {
     setFiltros({ ...filtros, [tipo]: valor });
   };
+
+  const medicosUnicos = [...new Set(historial.map(c => `${c.cita.medico.nombres} ${c.cita.medico.apellido_paterno}`))];
+  const especialidadesUnicas = [...new Set(historial.map(c => c.cita.medico.especialidad))];
+
+  const historialFiltrado = historial.filter((consulta) => {
+    const { fechaDesde, fechaHasta, medico, especialidad } = filtros;
+
+    const consultaFecha = consulta.cita.fecha;
+
+    const cumpleFechaDesde = !fechaDesde || consultaFecha >= fechaDesde;
+    const cumpleFechaHasta = !fechaHasta || consultaFecha <= fechaHasta;
+
+    const cumpleMedico =
+      !medico || `${consulta.cita.medico.nombres} ${consulta.cita.medico.apellido_paterno}`.toLowerCase().includes(medico.toLowerCase());
+
+    const cumpleEspecialidad =
+      !especialidad || consulta.cita.medico.especialidad.toLowerCase().includes(especialidad.toLowerCase());
+
+    return cumpleFechaDesde && cumpleFechaHasta && cumpleMedico && cumpleEspecialidad;
+  });
 
   return (
     <Container fluid className="py-4">
@@ -82,8 +106,8 @@ function Historial_Clinico() {
           </Col>
           {paciente && (
             <Col md="auto">
-              <Button variant="outline-danger" onClick={limpiar}>
-                <FaTimesCircle /> Limpiar
+              <Button variant="outline-danger" onClick={limpiarTodo}>
+                <FaTimesCircle /> Limpiar Todo
               </Button>
             </Col>
           )}
@@ -116,25 +140,58 @@ function Historial_Clinico() {
               </Card.Body>
             </Card>
 
-            {/* Filtros debajo */}
+            {/* Filtros */}
             <Card className="shadow-sm border-0">
               <Card.Header className="bg-info text-white text-center">
                 <h6 className="mb-0">Filtros de Búsqueda</h6>
               </Card.Header>
               <Card.Body>
-                {['motivo', 'fecha', 'medico', 'especialidad'].map((filtro) => (
-                  <div key={filtro} className="mb-2">
-                    <DropdownButton
-                      size="sm"
-                      variant="outline-secondary"
-                      title={filtros[filtro] || `Seleccionar ${filtro}`}
-                    >
-                      <Dropdown.Item onClick={() => handleFiltro(filtro, 'Opción 1')}>Opción 1</Dropdown.Item>
-                      <Dropdown.Item onClick={() => handleFiltro(filtro, 'Opción 2')}>Opción 2</Dropdown.Item>
-                      <Dropdown.Item onClick={() => handleFiltro(filtro, 'Opción 3')}>Opción 3</Dropdown.Item>
-                    </DropdownButton>
-                  </div>
-                ))}
+                <div className="mb-2">
+                  <Form.Label>Desde</Form.Label>
+                  <Form.Control
+                    size="sm"
+                    type="date"
+                    value={filtros.fechaDesde}
+                    onChange={(e) => handleFiltro('fechaDesde', e.target.value)}
+                  />
+                </div>
+                <div className="mb-2">
+                  <Form.Label>Hasta</Form.Label>
+                  <Form.Control
+                    size="sm"
+                    type="date"
+                    value={filtros.fechaHasta}
+                    onChange={(e) => handleFiltro('fechaHasta', e.target.value)}
+                  />
+                </div>
+
+                <div className="mb-2">
+                  <DropdownButton
+                    size="sm"
+                    variant="outline-secondary"
+                    title={filtros.medico || `Seleccionar médico`}
+                  >
+                    {medicosUnicos.map(m => (
+                      <Dropdown.Item key={m} onClick={() => handleFiltro('medico', m)}>
+                        {m}
+                      </Dropdown.Item>
+                    ))}
+                  </DropdownButton>
+                </div>
+
+                <div className="mb-2">
+                  <DropdownButton
+                    size="sm"
+                    variant="outline-secondary"
+                    title={filtros.especialidad || `Seleccionar especialidad`}
+                  >
+                    {especialidadesUnicas.map(e => (
+                      <Dropdown.Item key={e} onClick={() => handleFiltro('especialidad', e)}>
+                        {e}
+                      </Dropdown.Item>
+                    ))}
+                  </DropdownButton>
+                </div>
 
                 <div className="mt-3">
                   {Object.entries(filtros).map(([k, v]) =>
@@ -144,6 +201,12 @@ function Historial_Clinico() {
                       </Badge>
                     )
                   )}
+                </div>
+
+                <div className="mt-2 text-center">
+                  <Button variant="outline-warning" size="sm" onClick={limpiarFiltros}>
+                    <FaBroom /> Limpiar filtros
+                  </Button>
                 </div>
               </Card.Body>
             </Card>
@@ -163,8 +226,8 @@ function Historial_Clinico() {
                 }}
               >
                 <Row xs={1} md={1} className="g-3">
-                  {historial.length > 0 ? (
-                    historial.map((consulta) => (
+                  {historialFiltrado.length > 0 ? (
+                    historialFiltrado.map((consulta) => (
                       <Col key={consulta.id_consulta}>
                         <Card className="h-100 shadow-sm border border-success">
                           <Card.Header className="bg-light text-center">

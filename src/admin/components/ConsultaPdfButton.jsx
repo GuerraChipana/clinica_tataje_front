@@ -92,13 +92,14 @@ function ConsultaPdfButton({ consulta, paciente }) {
     doc.setFont('helvetica', 'normal');
 
     const datosConsulta = [
-      `Consulta #: ${consulta.id_consulta}`,
-      `Fecha: ${consulta.cita.fecha}`,
-      `Hora: ${consulta.cita.hora}`,
-      `Motivo: ${consulta.cita.motivo}`,
-      `Diagnóstico: ${consulta.diagnostico}`,
-      `Tratamiento: ${consulta.tratamiento}`
-    ];
+      `Consulta N°: ${consulta.id_consulta}`,
+      `Fecha: ${consulta.cita.fecha}    Hora: ${consulta.cita.hora}`,
+      consulta.cita.motivo ? `Motivo de consulta: ${consulta.cita.motivo}` : null,
+      consulta.diagnostico ? `Diagnóstico: ${consulta.diagnostico}` : null,
+      consulta.tratamiento ? `Tratamiento: ${consulta.tratamiento}` : null,
+      consulta.receta ? `Receta: ${consulta.receta}` : null,
+      consulta.recomendaciones ? `Recomendaciones: ${consulta.recomendaciones}` : null,
+    ].filter(Boolean);
 
     datosConsulta.forEach(linea => {
       const wrappedText = doc.splitTextToSize(linea, pageWidth - 2 * margen);
