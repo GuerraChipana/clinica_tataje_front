@@ -31,7 +31,7 @@ export const obtenerMedicoPorId = async (id) => {
 };
 
 // Obtener todos los médicos (sin auth)
-export const obtenerTodosLosMedicos = async () => {
+export const obtenerMedicos = async () => {
   const response = await axios.get(API_URL);
   return response.data;
 };
