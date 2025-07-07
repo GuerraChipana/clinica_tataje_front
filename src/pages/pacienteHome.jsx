@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { misDatos } from "../services/pacientes";
+import {
+  misDatos,
+  actualizarCelularYEstadoCivil,
+} from "../services/pacientes";
 import { obtenerHistorialPaciente } from "../services/historialClinicoService";
 import {
   Container,
@@ -13,7 +16,13 @@ import {
   Button,
   Modal,
 } from "react-bootstrap";
-import { FaMars, FaVenus, FaPlus, FaCalendarAlt, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaMars,
+  FaVenus,
+  FaPlus,
+  FaCalendarAlt,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import HistorialClinico from "../components/HistorialClinico";
 import CrearCitaPaciente from "../components/CrearCitaPaciente";
 import VerCitasPaciente from "../components/VerCitasPaciente";
@@ -25,6 +34,12 @@ const PacienteHome = () => {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showCitasModal, setShowCitasModal] = useState(false);
+
+  // nuevos estados para edición
+  const [editTelefono, setEditTelefono] = useState(false);
+  const [telefonoTmp, setTelefonoTmp] = useState("");
+  const [editEstadoCivil, setEditEstadoCivil] = useState(false);
+  const [estadoCivilTmp, setEstadoCivilTmp] = useState("");
 
   const navigate = useNavigate();
 
@@ -50,7 +65,6 @@ const PacienteHome = () => {
   };
 
   const handleCerrarModal = () => setShowModal(false);
-
   const handleCerrarCitasModal = () => setShowCitasModal(false);
 
   const handleCitaCreada = () => {
@@ -68,6 +82,40 @@ const PacienteHome = () => {
   const handleSalir = () => {
     localStorage.removeItem("token");
     navigate("/");
+  };
+
+  const handleEditarTelefono = () => {
+    setTelefonoTmp(paciente.telefono || "");
+    setEditTelefono(true);
+  };
+
+  const handleGuardarTelefono = async () => {
+    try {
+      await actualizarCelularYEstadoCivil({ telefono: telefonoTmp });
+      setPaciente({ ...paciente, telefono: telefonoTmp });
+    } catch (err) {
+      console.error(err);
+      alert("Error al actualizar el teléfono");
+    } finally {
+      setEditTelefono(false);
+    }
+  };
+
+  const handleEditarEstadoCivil = () => {
+    setEstadoCivilTmp(paciente.estado_civil || "");
+    setEditEstadoCivil(true);
+  };
+
+  const handleGuardarEstadoCivil = async () => {
+    try {
+      await actualizarCelularYEstadoCivil({ estado_civil: estadoCivilTmp });
+      setPaciente({ ...paciente, estado_civil: estadoCivilTmp });
+    } catch (err) {
+      console.error(err);
+      alert("Error al actualizar el estado civil");
+    } finally {
+      setEditEstadoCivil(false);
+    }
   };
 
   if (loading) {
@@ -95,7 +143,9 @@ const PacienteHome = () => {
         </Button>
       </div>
 
-      <h3 className="text-center text-primary mb-4">👤 Perfil del Paciente</h3>
+      <h3 className="text-center text-primary mb-4">
+        👤 Perfil del Paciente
+      </h3>
 
       <Row>
         <Col md={4}>
@@ -127,9 +177,93 @@ const PacienteHome = () => {
                 <strong>Dirección:</strong>{" "}
                 {paciente.direccion || <em>No registrada</em>}
               </p>
+
               <p>
                 <strong>Teléfono:</strong>{" "}
-                {paciente.telefono || <em>No registrado</em>}
+                {editTelefono ? (
+                  <>
+                    <input
+                      type="text"
+                      value={telefonoTmp}
+                      onChange={(e) => setTelefonoTmp(e.target.value)}
+                      className="form-control d-inline w-auto"
+                    />
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={handleGuardarTelefono}
+                      className="ms-2"
+                    >
+                      ✔️
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => setEditTelefono(false)}
+                      className="ms-1"
+                    >
+                      ❌
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {paciente.telefono || <em>No registrado</em>}{" "}
+                    <Button
+                      variant="link"
+                      size="sm"
+                      onClick={handleEditarTelefono}
+                      title="Editar teléfono"
+                    >
+                      ✏️
+                    </Button>
+                  </>
+                )}
+              </p>
+
+              <p>
+                <strong>Estado Civil:</strong>{" "}
+                {editEstadoCivil ? (
+                  <>
+                    <select
+                      value={estadoCivilTmp}
+                      onChange={(e) => setEstadoCivilTmp(e.target.value)}
+                      className="form-select d-inline w-auto"
+                    >
+                      <option value="SOLTERO">Soltero</option>
+                      <option value="CASADO">Casado</option>
+                      <option value="DIVORCIADO">Divorciado</option>
+                      <option value="VIUDO">Viudo</option>
+                    </select>
+                    <Button
+                      variant="success"
+                      size="sm"
+                      onClick={handleGuardarEstadoCivil}
+                      className="ms-2"
+                    >
+                      ✔️
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => setEditEstadoCivil(false)}
+                      className="ms-1"
+                    >
+                      ❌
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {paciente.estado_civil || <em>No registrado</em>}{" "}
+                    <Button
+                      variant="link"
+                      size="sm"
+                      onClick={handleEditarEstadoCivil}
+                      title="Editar estado civil"
+                    >
+                      ✏️
+                    </Button>
+                  </>
+                )}
               </p>
             </Card.Body>
           </Card>
@@ -149,7 +283,6 @@ const PacienteHome = () => {
         </Col>
       </Row>
 
-      {/* Modal con el formulario */}
       <Modal show={showModal} onHide={handleCerrarModal} size="lg" centered>
         <Modal.Body>
           <CrearCitaPaciente
