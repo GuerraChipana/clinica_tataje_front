@@ -13,39 +13,45 @@ const CrearCitaPaciente = ({ onCitaCreada, onCancel }) => {
   });
   const [medicos, setMedicos] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState({ type: "", message: "" });
+  const [feedback, setFeedback] = useState(null);
 
   useEffect(() => {
     obtenerMedicos()
       .then((res) => setMedicos(res.data.data))
-      .catch(() => setFeedback({ type: "danger", message: "No se pudieron cargar los médicos." }));
+      .catch(() =>
+        setFeedback({
+          type: "danger",
+          message: "No se pudieron cargar los médicos.",
+        })
+      );
   }, []);
 
-  const especialidades = Array.from(
-    new Map(medicos.map((m) => [m.especialidad.id_especialidad, m.especialidad])).values()
-  );
+  const especialidades = [
+    ...new Map(medicos.map((m) => [m.especialidad.id_especialidad, m.especialidad])).values(),
+  ];
 
   const medicosFiltrados = medicos.filter(
-    (m) => m.especialidad.id_especialidad === form.especialidad
+    (m) => m.especialidad.id_especialidad == form.especialidad
   );
 
-  const handleChange = ({ target: { name, value } }) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
       [name]: value,
-      ...(name === "especialidad" && { medico: "" }),
+      ...(name === "especialidad" ? { medico: "" } : {}), // reset médico si cambia especialidad
     }));
   };
 
   const resetForm = () => {
     setForm({ especialidad: "", medico: "", fecha: "", hora: "", motivo: "" });
-    setFeedback({});
+    setFeedback(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setFeedback({});
+    setFeedback(null);
 
     try {
       await crearCitaPaciente({
@@ -56,7 +62,7 @@ const CrearCitaPaciente = ({ onCitaCreada, onCancel }) => {
       });
       setFeedback({ type: "success", message: "¡Cita creada correctamente!" });
       resetForm();
-      onCitaCreada?.(); // notifica al padre para cerrar el modal o refrescar datos
+      onCitaCreada?.(); // notifica al padre
     } catch {
       setFeedback({ type: "danger", message: "Ocurrió un error al crear la cita." });
     } finally {
@@ -66,7 +72,7 @@ const CrearCitaPaciente = ({ onCitaCreada, onCancel }) => {
 
   const handleCancel = () => {
     resetForm();
-    onCancel?.(); // notifica al padre para cerrar el modal
+    onCancel?.(); // notifica al padre
   };
 
   const today = new Date().toISOString().split("T")[0];
@@ -76,14 +82,22 @@ const CrearCitaPaciente = ({ onCitaCreada, onCancel }) => {
       <Card.Header className="bg-primary text-white text-center">
         <h5>📅 Crear Nueva Cita</h5>
       </Card.Header>
+
       <Card.Body>
-        {feedback.message && <Alert variant={feedback.type}>{feedback.message}</Alert>}
+        {feedback?.message && (
+          <Alert variant={feedback.type}>{feedback.message}</Alert>
+        )}
 
         <Form onSubmit={handleSubmit}>
           <Row className="mb-3">
             <Col md={6}>
               <Form.Label>Especialidad</Form.Label>
-              <Form.Select name="especialidad" value={form.especialidad} onChange={handleChange}>
+              <Form.Select
+                name="especialidad"
+                value={form.especialidad}
+                onChange={handleChange}
+                required
+              >
                 <option value="">Seleccione especialidad</option>
                 {especialidades.map((esp) => (
                   <option key={esp.id_especialidad} value={esp.id_especialidad}>
@@ -92,6 +106,7 @@ const CrearCitaPaciente = ({ onCitaCreada, onCancel }) => {
                 ))}
               </Form.Select>
             </Col>
+
             <Col md={6}>
               <Form.Label>Médico</Form.Label>
               <Form.Select
@@ -99,6 +114,7 @@ const CrearCitaPaciente = ({ onCitaCreada, onCancel }) => {
                 value={form.medico}
                 onChange={handleChange}
                 disabled={!form.especialidad}
+                required
               >
                 <option value="">Seleccione un médico</option>
                 {medicosFiltrados.map((m) => (
@@ -122,6 +138,7 @@ const CrearCitaPaciente = ({ onCitaCreada, onCancel }) => {
                 required
               />
             </Col>
+
             <Col md={6}>
               <Form.Label>Hora</Form.Label>
               <Form.Control
@@ -131,7 +148,7 @@ const CrearCitaPaciente = ({ onCitaCreada, onCancel }) => {
                 onChange={handleChange}
                 min="06:00"
                 max="22:30"
-                step="900"
+                step="900" // 15 minutos
                 required
               />
             </Col>
@@ -159,6 +176,7 @@ const CrearCitaPaciente = ({ onCitaCreada, onCancel }) => {
             >
               Cancelar
             </Button>
+
             <Button type="submit" variant="success" disabled={loading}>
               {loading ? (
                 <>

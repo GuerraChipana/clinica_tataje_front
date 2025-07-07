@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Home() {
   return (

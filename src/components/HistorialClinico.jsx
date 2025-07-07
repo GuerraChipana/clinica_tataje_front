@@ -3,7 +3,7 @@ import { Card, Row, Col, Form, Button } from "react-bootstrap";
 import { FaHeartbeat } from "react-icons/fa";
 import ConsultaPdfButton from "../admin/components/ConsultaPdfButton";
 
-const HistorialClinico = ({ historial, paciente }) => {
+const HistorialClinico = ({ historial = [], paciente }) => {
   const [filtros, setFiltros] = useState({
     desde: "",
     hasta: "",
@@ -11,6 +11,7 @@ const HistorialClinico = ({ historial, paciente }) => {
   });
 
   const especialidades = useMemo(() => {
+    if (!Array.isArray(historial) || historial.length === 0) return [];
     return [
       ...new Set(
         historial
@@ -49,7 +50,7 @@ const HistorialClinico = ({ historial, paciente }) => {
     return true;
   };
 
-  const historialFiltrado = historial.filter(aplicarFiltros);
+  const historialFiltrado = (Array.isArray(historial) ? historial : []).filter(aplicarFiltros);
 
   return (
     <Card className="shadow-sm border-0">
@@ -59,85 +60,94 @@ const HistorialClinico = ({ historial, paciente }) => {
       <Card.Body
         style={{ maxHeight: "600px", overflowY: "auto", background: "#f9f9f9" }}
       >
-        {/* Filtros */}
-        <Form className="mb-3">
-          <Row className="g-2">
-            <Col md>
-              <Form.Label>Desde</Form.Label>
-              <Form.Control type="date" name="desde" value={filtros.desde} onChange={handleFiltroChange} />
-            </Col>
-            <Col md>
-              <Form.Label>Hasta</Form.Label>
-              <Form.Control type="date" name="hasta" value={filtros.hasta} onChange={handleFiltroChange} />
-            </Col>
-            <Col md>
-              <Form.Label>Especialidad</Form.Label>
-              <Form.Select name="especialidad" value={filtros.especialidad} onChange={handleFiltroChange}>
-                <option value="">Todas</option>
-                {especialidades.map((esp, idx) => (
-                  <option key={idx} value={esp}>{esp}</option>
-                ))}
-              </Form.Select>
-            </Col>
-          </Row>
-          <Row className="mt-3">
-            <Col className="text-end">
-              <Button
-                variant="outline-secondary"
-                size="sm"
-                onClick={handleLimpiarFiltros}
-              >
-                Limpiar Filtros
-              </Button>
-            </Col>
-          </Row>
-        </Form>
+        {(!historial || historial.length === 0) ? (
+          <p className="text-muted text-center m-4">
+            El paciente aún no tiene consultas médicas registradas.
+          </p>
+        ) : (
+          <>
+            {/* Filtros */}
+            <Form className="mb-3">
+              <Row className="g-2">
+                <Col md>
+                  <Form.Label>Desde</Form.Label>
+                  <Form.Control type="date" name="desde" value={filtros.desde} onChange={handleFiltroChange} />
+                </Col>
+                <Col md>
+                  <Form.Label>Hasta</Form.Label>
+                  <Form.Control type="date" name="hasta" value={filtros.hasta} onChange={handleFiltroChange} />
+                </Col>
+                <Col md>
+                  <Form.Label>Especialidad</Form.Label>
+                  <Form.Select name="especialidad" value={filtros.especialidad} onChange={handleFiltroChange}>
+                    <option value="">Todas</option>
+                    {especialidades.map((esp, idx) => (
+                      <option key={idx} value={esp}>{esp}</option>
+                    ))}
+                  </Form.Select>
+                </Col>
+              </Row>
+              <Row className="mt-3">
+                <Col className="text-end">
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
+                    onClick={handleLimpiarFiltros}
+                  >
+                    Limpiar Filtros
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
 
-        <Row xs={1} md={1} className="g-3">
-          {historialFiltrado.length > 0 ? (
-            historialFiltrado.map(consulta => (
-              <Col key={consulta.id_consulta}>
-                <Card className="h-100 shadow-sm border border-success">
-                  <Card.Header className="bg-light text-center">
-                    <strong className="text-success">
-                      Consulta #{consulta.id_consulta}
-                    </strong>
-                  </Card.Header>
-                  <Card.Body>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      <small>
-                        <strong>Fecha:</strong> {consulta.cita?.fecha || "—"} <br />
-                        <strong>Hora:</strong> {consulta.cita?.hora || "—"}
-                      </small>
-                    </Card.Subtitle>
-                    <p><strong>Motivo:</strong> {consulta.cita?.motivo || "—"}</p>
-                    <p><strong>Diagnóstico:</strong> {consulta.diagnostico || "—"}</p>
-                    <p><strong>Tratamiento:</strong> {consulta.tratamiento || "—"}</p>
-                    {consulta.observaciones && (
-                      <p><strong>Observaciones:</strong> {consulta.observaciones}</p>
-                    )}
-                    <hr />
-                    <p className="mb-0">
-                      <strong>Médico:</strong> {consulta.cita?.medico?.nombres || "—"} {consulta.cita?.medico?.apellido_paterno || ""}<br />
-                      <strong>Especialidad:</strong> {consulta.cita?.medico?.especialidad || "—"}
-                    </p>
+            <Row xs={1} md={1} className="g-3">
+              {historialFiltrado.length > 0 ? (
+                historialFiltrado.map(consulta => (
+                  <Col key={consulta.id_consulta || Math.random()}>
+                    <Card className="h-100 shadow-sm border border-success">
+                      <Card.Header className="bg-light text-center">
+                        <strong className="text-success">
+                          Consulta #{consulta.id_consulta || "—"}
+                        </strong>
+                      </Card.Header>
+                      <Card.Body>
+                        <Card.Subtitle className="mb-2 text-muted">
+                          <small>
+                            <strong>Fecha:</strong> {consulta.cita?.fecha || "—"} <br />
+                            <strong>Hora:</strong> {consulta.cita?.hora || "—"}
+                          </small>
+                        </Card.Subtitle>
+                        <p><strong>Motivo:</strong> {consulta.cita?.motivo || "—"}</p>
+                        <p><strong>Diagnóstico:</strong> {consulta.diagnostico || "—"}</p>
+                        <p><strong>Tratamiento:</strong> {consulta.tratamiento || "—"}</p>
+                        {consulta.observaciones && (
+                          <p><strong>Observaciones:</strong> {consulta.observaciones}</p>
+                        )}
+                        <hr />
+                        <p className="mb-0">
+                          <strong>Médico:</strong> {consulta.cita?.medico?.nombres || "—"} {consulta.cita?.medico?.apellido_paterno || ""}<br />
+                          <strong>Especialidad:</strong> {consulta.cita?.medico?.especialidad || "—"}
+                        </p>
 
-                    <div className="mt-3 text-end">
-                      <ConsultaPdfButton consulta={consulta} paciente={paciente} />
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))
-          ) : (
-            <p className="text-muted text-center">
-              No se encontraron consultas médicas con los filtros seleccionados.
-            </p>
-          )}
-        </Row>
+                        <div className="mt-3 text-end">
+                          <ConsultaPdfButton consulta={consulta} paciente={paciente} />
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))
+              ) : (
+                <p className="text-muted text-center">
+                  No se encontraron consultas médicas con los filtros seleccionados.
+                </p>
+              )}
+            </Row>
+          </>
+        )}
       </Card.Body>
     </Card>
   );
 };
 
 export default HistorialClinico;
+  
