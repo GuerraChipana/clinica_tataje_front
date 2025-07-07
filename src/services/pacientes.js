@@ -36,4 +36,8 @@ export const actualizarCelularYEstadoCivil = async (datos) => {
   return response.data;
 };
 
+export const misDatos = async (data)=> {
+  const response = await axios.patch(`${API_URL}/misDatos`,data,getAuthHeaders())
+  return response.data;
+}
 
