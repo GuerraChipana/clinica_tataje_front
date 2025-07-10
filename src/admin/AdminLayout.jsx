@@ -3,12 +3,12 @@ import AdminHeader from '../components/AdminHeader';
 
 const AdminLayout = () => {
   return (
-    <div>
+    <>
       <AdminHeader />
-      <main style={{ padding: '2rem' }}>
+      <main style={{ paddingTop: '80px', paddingLeft: '1rem', paddingRight: '1rem' }}>
         <Outlet />
       </main>
-    </div>
+    </>
   );
 };
 
