@@ -1,35 +1,56 @@
 import { Link } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
+import '../styles/admin/CarouselCustom.css';
 
 function Home() {
   return (
     <div>
-      {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container">
-          <a className="navbar-brand" href="/">Clínica</a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <nav className="navbar navbar-dark bg-dark fixed-top">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/">Clínica</Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item"><Link className="nav-link" to="/">Inicio</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/sobre-nosotros">Sobre Nosotros</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/paciente">Paciente</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/historial">Historial</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/contacto">Contacto</Link></li>
-            </ul>
-            <div>
-              <Link to="/login-paciente" className="btn btn-outline-light me-2">Iniciar Sesión</Link>
+          <div
+            className="offcanvas offcanvas-end text-bg-dark"
+            tabIndex="-1"
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+          >
+            <div className="offcanvas-header">
+              <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
+              <button
+                type="button"
+                className="btn-close btn-close-white"
+                data-bs-dismiss="offcanvas"
+                aria-label="Cerrar"
+              ></button>
+            </div>
+            <div className="offcanvas-body">
+              <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li className="nav-item"><Link className="nav-link" to="/">Inicio</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/sobre-nosotros">Sobre Nosotros</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/paciente">Paciente</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/historial">Historial</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/contacto">Contacto</Link></li>
+                <li className="nav-item mt-3"><Link to="/login-paciente" className="btn btn-outline-light w-100">Iniciar Sesión</Link></li>
+              </ul>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Carousel */}
+      <div style={{ marginTop: '56px' }}></div>
+
       <Carousel>
         <Carousel.Item>
-          <img className="d-block w-100" src="/images/banner1.jpg" alt="First slide" />
+          <img className="d-block w-100" src="/images/banner1.jpg" alt="Primer banner" />
           <Carousel.Caption>
             <h3>Miércoles de Bienestar</h3>
             <p>Atiende tu salud con los mejores especialistas</p>
@@ -37,7 +58,7 @@ function Home() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img className="d-block w-100" src="/images/banner2.jpg" alt="Second slide" />
+          <img className="d-block w-100" src="/images/banner2.jpg" alt="Segundo banner" />
           <Carousel.Caption>
             <h3>Cuidamos de ti</h3>
             <p>Reserva tus citas fácilmente</p>
@@ -45,7 +66,6 @@ function Home() {
         </Carousel.Item>
       </Carousel>
 
-      {/* Sección de servicios */}
       <div className="container py-5">
         <h2 className="text-center mb-4">¿En qué podemos ayudarte?</h2>
         <div className="row g-4">

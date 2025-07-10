@@ -1,20 +1,16 @@
-/* Fondo general */
 .login-paciente-container {
   background-color: #f6f9fc;
 }
 
-/* Título */
 h3 {
   color: #1e3144;
 }
 
-/* Etiquetas del formulario */
 .form-label {
   color: #1e3144;
   font-weight: 600;
 }
 
-/* Botón principal: INICIAR SESIÓN */
 .btn-primary {
   background-color: #1e3144 !important;
   border-color: #1e3144 !important;
@@ -22,12 +18,11 @@ h3 {
 }
 
 .btn-primary:hover {
-  background-color: #294766 !important; /* Más claro */
+  background-color: #294766 !important; 
   border-color: #294766 !important;
   transform: scale(1.02);
 }
 
-/* Botón REGISTRARSE */
 .btn-outline-primary {
   color: #1e3144 !important;
   border-color: #1e3144 !important;
@@ -36,7 +31,7 @@ h3 {
 }
 
 .btn-outline-primary:hover {
-  background-color: #949494 !important;  /* Gris oscuro */
+  background-color: #949494 !important; 
   color: white !important;
   border-color: #949494 !important;
   transform: scale(1.02);
