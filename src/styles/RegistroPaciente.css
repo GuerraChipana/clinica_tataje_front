@@ -11,7 +11,7 @@
 .registro-paciente-imagen {
   flex: 1;
   display: flex;
-  align-items: stretch; /* Cambiado de center a stretch para que ocupe toda la altura */
+  align-items: stretch;
   justify-content: center;
   background-color: #fff2e6;
   overflow: hidden;
@@ -36,7 +36,7 @@
 }
 
 .registro-paciente-formulario h2 {
-  color: #ff7c00;
+  color: #1e3144;
   margin-bottom: 1.5rem;
 }
 
@@ -51,6 +51,7 @@
 .registro-paciente-campo-dni label {
   font-weight: bold;
   margin-right: 0.5rem;
+  color: #1e3144;
 }
 
 .registro-paciente-campo-dni input {
@@ -76,6 +77,7 @@
 .registro-paciente-campo label {
   font-weight: bold;
   margin-bottom: 0.4rem;
+  color: #1e3144;
 }
 
 .registro-paciente-campo input[type="text"],
@@ -117,7 +119,7 @@
 
 .registro-paciente-botones button {
   padding: 0.6rem 1.5rem;
-  background-color: #ff7c00;
+  background-color: #1e3144;
   border: none;
   border-radius: 6px;
   color: #fff;
@@ -127,11 +129,11 @@
 }
 
 .registro-paciente-botones button:hover {
-  background-color: #e66d00;
+  background-color: #162635;
 }
 
 .registro-paciente-btn-link {
-  color: #ff7c00;
+  color: #1e3144;
   text-decoration: none;
   font-weight: bold;
   display: flex;
