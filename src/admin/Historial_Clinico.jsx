@@ -12,7 +12,6 @@ function Historial_Clinico() {
   const [paciente, setPaciente] = useState(null);
   const [historial, setHistorial] = useState([]);
   const [error, setError] = useState('');
-
   const [filtros, setFiltros] = useState({ fechaDesde: '', fechaHasta: '', medico: '', especialidad: '' });
 
   const buscarHistorial = async () => {
@@ -29,7 +28,6 @@ function Historial_Clinico() {
         return;
       }
       setPaciente(encontrado);
-
       const response = await obtenerHistorialPorID({ id_paciente: encontrado.id_paciente });
       setHistorial(response.data);
     } catch (err) {
@@ -49,11 +47,8 @@ function Historial_Clinico() {
     setFiltros({ fechaDesde: '', fechaHasta: '', medico: '', especialidad: '' });
   };
 
-  const renderGeneroIcon = (genero) => {
-    return genero === 'Masculino'
-      ? <FaMars className="text-primary ms-2" />
-      : <FaVenus className="text-danger ms-2" />;
-  };
+  const renderGeneroIcon = (genero) =>
+    genero === 'Masculino' ? <FaMars className="text-primary ms-2" /> : <FaVenus className="text-danger ms-2" />;
 
   const handleFiltro = (tipo, valor) => {
     setFiltros({ ...filtros, [tipo]: valor });
@@ -64,24 +59,19 @@ function Historial_Clinico() {
 
   const historialFiltrado = historial.filter((consulta) => {
     const { fechaDesde, fechaHasta, medico, especialidad } = filtros;
-
     const consultaFecha = consulta.cita.fecha;
 
     const cumpleFechaDesde = !fechaDesde || consultaFecha >= fechaDesde;
     const cumpleFechaHasta = !fechaHasta || consultaFecha <= fechaHasta;
-
-    const cumpleMedico =
-      !medico || `${consulta.cita.medico.nombres} ${consulta.cita.medico.apellido_paterno}`.toLowerCase().includes(medico.toLowerCase());
-
-    const cumpleEspecialidad =
-      !especialidad || consulta.cita.medico.especialidad.toLowerCase().includes(especialidad.toLowerCase());
+    const cumpleMedico = !medico || `${consulta.cita.medico.nombres} ${consulta.cita.medico.apellido_paterno}`.toLowerCase().includes(medico.toLowerCase());
+    const cumpleEspecialidad = !especialidad || consulta.cita.medico.especialidad.toLowerCase().includes(especialidad.toLowerCase());
 
     return cumpleFechaDesde && cumpleFechaHasta && cumpleMedico && cumpleEspecialidad;
   });
 
   return (
     <Container fluid className="py-4">
-      <h3 className="mb-4 text-center text-primary">
+      <h3 className="mb-4 text-center" style={{ color: "#1e3144" }}>
         📋 Historial Clínico del Paciente
       </h3>
 
@@ -89,7 +79,7 @@ function Historial_Clinico() {
         <Row className="align-items-end g-2 justify-content-center">
           <Col md={4}>
             <Form.Group>
-              <Form.Label>DNI del Paciente</Form.Label>
+              <Form.Label style={{ color: "#1e3144", fontWeight: "600" }}>DNI del Paciente</Form.Label>
               <Form.Control
                 type="text"
                 maxLength={8}
@@ -100,7 +90,7 @@ function Historial_Clinico() {
             </Form.Group>
           </Col>
           <Col md="auto">
-            <Button variant="primary" onClick={buscarHistorial}>
+            <Button style={{ backgroundColor: "#1e3144", borderColor: "#1e3144" }} onClick={buscarHistorial}>
               <FaSearch /> Buscar
             </Button>
           </Col>
@@ -121,7 +111,7 @@ function Historial_Clinico() {
           {/* Panel izquierdo */}
           <Col md={4}>
             <Card className="mb-4 shadow-sm border-0">
-              <Card.Header className="bg-primary text-white text-center">
+              <Card.Header style={{ backgroundColor: "#1e3144" }} className="text-white text-center">
                 <h5 className="mb-0">Datos del Paciente</h5>
               </Card.Header>
               <Card.Body>
@@ -142,7 +132,7 @@ function Historial_Clinico() {
 
             {/* Filtros */}
             <Card className="shadow-sm border-0">
-              <Card.Header className="bg-info text-white text-center">
+              <Card.Header style={{ backgroundColor: "#1e3144" }} className="text-white text-center">
                 <h6 className="mb-0">Filtros de Búsqueda</h6>
               </Card.Header>
               <Card.Body>
@@ -164,13 +154,8 @@ function Historial_Clinico() {
                     onChange={(e) => handleFiltro('fechaHasta', e.target.value)}
                   />
                 </div>
-
                 <div className="mb-2">
-                  <DropdownButton
-                    size="sm"
-                    variant="outline-secondary"
-                    title={filtros.medico || `Seleccionar médico`}
-                  >
+                  <DropdownButton size="sm" variant="outline-secondary" title={filtros.medico || `Seleccionar médico`}>
                     {medicosUnicos.map(m => (
                       <Dropdown.Item key={m} onClick={() => handleFiltro('medico', m)}>
                         {m}
@@ -178,13 +163,8 @@ function Historial_Clinico() {
                     ))}
                   </DropdownButton>
                 </div>
-
                 <div className="mb-2">
-                  <DropdownButton
-                    size="sm"
-                    variant="outline-secondary"
-                    title={filtros.especialidad || `Seleccionar especialidad`}
-                  >
+                  <DropdownButton size="sm" variant="outline-secondary" title={filtros.especialidad || `Seleccionar especialidad`}>
                     {especialidadesUnicas.map(e => (
                       <Dropdown.Item key={e} onClick={() => handleFiltro('especialidad', e)}>
                         {e}
@@ -192,17 +172,13 @@ function Historial_Clinico() {
                     ))}
                   </DropdownButton>
                 </div>
-
                 <div className="mt-3">
-                  {Object.entries(filtros).map(([k, v]) =>
-                    v && (
-                      <Badge bg="secondary" className="me-1" key={k}>
-                        {k}: {v}
-                      </Badge>
-                    )
-                  )}
+                  {Object.entries(filtros).map(([k, v]) => v && (
+                    <Badge bg="secondary" className="me-1" key={k}>
+                      {k}: {v}
+                    </Badge>
+                  ))}
                 </div>
-
                 <div className="mt-2 text-center">
                   <Button variant="outline-warning" size="sm" onClick={limpiarFiltros}>
                     <FaBroom /> Limpiar filtros
@@ -215,23 +191,17 @@ function Historial_Clinico() {
           {/* Panel derecho */}
           <Col md={8}>
             <Card className="shadow-sm border-0 h-100">
-              <Card.Header className="bg-success text-white text-center">
+              <Card.Header className="text-white text-center" style={{ backgroundColor: "#1e3144" }}>
                 <h5 className="mb-0">Consultas Médicas</h5>
               </Card.Header>
-              <Card.Body
-                style={{
-                  maxHeight: '600px',
-                  overflowY: 'auto',
-                  background: '#f9f9f9'
-                }}
-              >
+              <Card.Body style={{ maxHeight: '600px', overflowY: 'auto', background: '#f9f9f9' }}>
                 <Row xs={1} md={1} className="g-3">
                   {historialFiltrado.length > 0 ? (
                     historialFiltrado.map((consulta) => (
                       <Col key={consulta.id_consulta}>
-                        <Card className="h-100 shadow-sm border border-success">
+                        <Card className="h-100 shadow-sm border border-primary">
                           <Card.Header className="bg-light text-center">
-                            <strong className="text-success">
+                            <strong className="text-primary">
                               Consulta #{consulta.id_consulta}
                             </strong>
                           </Card.Header>

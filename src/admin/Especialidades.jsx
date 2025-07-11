@@ -45,8 +45,8 @@ function Especialidades() {
   };
 
   return (
-    <div className="container py-4">
-      <div className="card border-0 shadow-lg rounded-4">
+    <div className="container-fluid py-4">
+      <div className="card border-0 shadow-lg rounded-4 w-100">
         <div
           className="card-header d-flex justify-content-between align-items-center text-white"
           style={{
@@ -71,52 +71,60 @@ function Especialidades() {
               No hay especialidades registradas.
             </div>
           ) : (
-            <div className="table-responsive" style={{ maxHeight: '420px' }}>
-              <table className="table table-hover align-middle mb-0 text-center">
-                <thead className="sticky-top" style={{ backgroundColor: '#1e3144', color: '#fff' }}>
-                  <tr>
-                    <th style={{ width: '5%' }}>#</th>
-                    <th style={{ width: '20%' }}>Nombre</th>
-                    <th style={{ width: '40%' }}>Descripción</th>
-                    <th style={{ width: '20%' }}>Imagen</th>
-                    <th style={{ width: '15%' }}>Acciones</th>
+            <table
+              className="table table-hover align-middle mb-0 text-center"
+              style={{ width: '100%' }}
+            >
+              <thead
+                style={{ backgroundColor: '#1e3144', color: '#fff' }}
+              >
+                <tr>
+                  <th style={{ width: '5%' }}>#</th>
+                  <th style={{ width: '20%' }}>Nombre</th>
+                  <th style={{ width: '40%' }}>Descripción</th>
+                  <th style={{ width: '20%' }}>Imagen</th>
+                  <th style={{ width: '15%' }}>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {especialidades.map((esp, i) => (
+                  <tr key={esp.id_especialidad} className="bg-white">
+                    <td>{i + 1}</td>
+                    <td className="text-start fw-medium">{esp.nombre}</td>
+                    <td className="text-start text-muted">{esp.descripcion}</td>
+                    <td>
+                      <img
+                        src={`data:image/jpeg;base64,${esp.imagen}`}
+                        alt={esp.nombre}
+                        className="rounded"
+                        style={{
+                          width: '80px',
+                          height: '80px',
+                          objectFit: 'cover',
+                          border: '2px solid #ddd'
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <div className="d-flex justify-content-center gap-2">
+                        <button
+                          className="btn btn-sm btn-outline-warning px-3 rounded-pill"
+                          onClick={() => abrirEditar(esp.id_especialidad)}
+                        >
+                          ✏️ Editar
+                        </button>
+                        <button
+                          className="btn btn-sm btn-outline-danger px-3 rounded-pill"
+                          onClick={() => handleEliminar(esp.id_especialidad)}
+                        >
+                          🗑️ Eliminar
+                        </button>
+                      </div>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {especialidades.map((esp, i) => (
-                    <tr key={esp.id_especialidad} className="bg-white">
-                      <td>{i + 1}</td>
-                      <td className="text-start fw-medium">{esp.nombre}</td>
-                      <td className="text-start text-muted">{esp.descripcion}</td>
-                      <td>
-                        <img
-                          src={`data:image/jpeg;base64,${esp.imagen}`}
-                          alt={esp.nombre}
-                          className="rounded"
-                          style={{ width: '80px', height: '80px', objectFit: 'cover', border: '2px solid #ddd' }}
-                        />
-                      </td>
-                      <td>
-                        <div className="d-flex justify-content-center gap-2">
-                          <button
-                            className="btn btn-sm btn-outline-warning px-3 rounded-pill"
-                            onClick={() => abrirEditar(esp.id_especialidad)}
-                          >
-                            ✏️ Editar
-                          </button>
-                          <button
-                            className="btn btn-sm btn-outline-danger px-3 rounded-pill"
-                            onClick={() => handleEliminar(esp.id_especialidad)}
-                          >
-                            🗑️ Eliminar
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           )}
         </div>
       </div>

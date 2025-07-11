@@ -22,11 +22,12 @@ function MiCuenta() {
   return (
     <div className="container m-auto d-flex justify-content-center">
       <div className="card shadow-lg p-4 rounded-4" style={{ maxWidth: '600px', width: '100%' }}>
-        <h3 className="mb-4 text-center text-primary">Mi Cuenta</h3>
+        <h3 className="mb-4 text-center" style={{ color: '#1e3144' }}>
+          Mi Cuenta
+        </h3>
         {usuario ? (
           <>
             <div className="row">
-              {/* tus datos */}
               <div className="col-12 mb-3">
                 <label className="form-label text-muted">DNI</label>
                 <div className="form-control bg-light">{usuario.dni}</div>
@@ -50,7 +51,10 @@ function MiCuenta() {
               <div className="col-12 mb-3">
                 <label className="form-label text-muted">Rol</label>
                 <div className="form-control bg-light">
-                  <span className="badge bg-primary px-3 py-2 fs-6 rounded-pill shadow-sm">
+                  <span
+                    className="badge px-3 py-2 fs-6 rounded-pill shadow-sm"
+                    style={{ backgroundColor: '#1e3144', color: 'white' }}
+                  >
                     {usuario.rol.toUpperCase()}
                   </span>
                 </div>
@@ -59,8 +63,13 @@ function MiCuenta() {
 
             <div className="text-center mt-4">
               <button
-                className="btn btn-outline-primary"
+                className="btn"
                 onClick={() => setShowModal(true)}
+                style={{
+                  border: '2px solid #1e3144',
+                  color: '#1e3144',
+                  fontWeight: '500',
+                }}
               >
                 Cambiar Credenciales
               </button>
