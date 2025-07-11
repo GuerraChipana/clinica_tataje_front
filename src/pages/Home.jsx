@@ -2,122 +2,136 @@ import { Link } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import '../styles/admin/OffcanvasCustom.css';
 import '../styles/admin/CarouselCustom.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function Home() {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      {/* NAVBAR */}
+      <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#1e3144' }}>
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">Clínica</Link>
-
-          {/* Botón hamburguesa solo visible en pantallas pequeñas */}
-          <button
-            className="navbar-toggler d-lg-none"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar"
-          >
+          <Link className="navbar-brand text-white fw-bold" to="/">ClínicaSalud+</Link>
+          <button className="navbar-toggler d-lg-none text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {/* Menú visible solo en pantallas grandes */}
           <div className="collapse navbar-collapse d-none d-lg-flex justify-content-end">
             <ul className="navbar-nav">
-              <li className="nav-item"><Link className="nav-link" to="/">Inicio</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/sobre-nosotros">Sobre Nosotros</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/paciente">Paciente</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/historial">Historial</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/contacto">Contacto</Link></li>
+              {["Inicio", "Sobre Nosotros", "Paciente", "Historial", "Contacto"].map((item, i) => (
+                <li className="nav-item" key={i}>
+                  <Link className="nav-link text-white" to={item === "Inicio" ? "/" : "/" + item.toLowerCase().replace(" ", "-")}>{item}</Link>
+                </li>
+              ))}
             </ul>
-            <Link to="/login-paciente" className="btn btn-outline-light ms-3">Iniciar Sesión</Link>
+            <Link to="/login-paciente" className="btn btn-light ms-3" style={{ backgroundColor: '#000', color: '#fff' }}>Iniciar Sesión</Link>
           </div>
 
-          {/* Offcanvas para pantallas pequeñas */}
-          <div
-            className="offcanvas offcanvas-end text-bg-dark d-lg-none"
-            tabIndex="-1"
-            id="offcanvasNavbar"
-            aria-labelledby="offcanvasNavbarLabel"
-          >
+          <div className="offcanvas offcanvas-end text-bg-dark d-lg-none" id="offcanvasNavbar">
             <div className="offcanvas-header">
-              <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
-              <button
-                type="button"
-                className="btn-close btn-close-white"
-                data-bs-dismiss="offcanvas"
-                aria-label="Cerrar"
-              ></button>
+              <h5 className="offcanvas-title">Menú</h5>
+              <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
             </div>
             <div className="offcanvas-body d-flex flex-column justify-content-between">
               <ul className="navbar-nav">
-                <li className="nav-item"><Link className="nav-link" to="/">Inicio</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/sobre-nosotros">Sobre Nosotros</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/paciente">Paciente</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/historial">Historial</Link></li>
-                <li className="nav-item"><Link className="nav-link" to="/contacto">Contacto</Link></li>
+                <li className="nav-item"><Link className="nav-link text-white" to="/">Inicio</Link></li>
+                <li className="nav-item"><Link className="nav-link text-white" to="/sobre-nosotros">Sobre Nosotros</Link></li>
+                <li className="nav-item"><Link className="nav-link text-white" to="/paciente">Paciente</Link></li>
+                <li className="nav-item"><Link className="nav-link text-white" to="/historial">Historial</Link></li>
+                <li className="nav-item"><Link className="nav-link text-white" to="/contacto">Contacto</Link></li>
               </ul>
-              <Link to="/login-paciente" className="btn btn-outline-light mt-3 w-100">Iniciar Sesión</Link>
+              <Link to="/login-paciente" className="btn mt-3 w-100" style={{ backgroundColor: '#000', color: '#fff' }}>Iniciar Sesión</Link>
             </div>
           </div>
         </div>
       </nav>
 
-      <Carousel controls={false} indicators={true}>
+      {/* CAROUSEL */}
+<Carousel controls={false} indicators={true}>
         <Carousel.Item>
-          <img className="d-block w-100" src="/images/banner1.jpg" alt="Banner 1" style={{ height: '350px', objectFit: 'cover' }} />
+          <img className="d-block w-100" src="/images/banner1.jpg" alt="Banner 1" style={{ height: '400px', objectFit: 'cover' }} />
           <Carousel.Caption>
-            <h3>Miércoles de Bienestar</h3>
-            <p>Atiende tu salud con los mejores especialistas</p>
-            <Link to="/contacto" className="btn btn-warning">Contáctanos</Link>
+            <h2 className="text-light">Miércoles de Bienestar</h2>
+            <p>Cuidamos tu salud con los mejores especialistas</p>
+            <Link to="/contacto" className="btn" style={{ backgroundColor: '#000', color: '#fff' }}>Contáctanos</Link>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img className="d-block w-100" src="/images/banner2.jpg" alt="Banner 2" style={{ height: '350px', objectFit: 'cover' }} />
+          <img className="d-block w-100" src="/images/banner2.jpg" alt="Banner 2" style={{ height: '400px', objectFit: 'cover' }} />
           <Carousel.Caption>
-            <h3>Cuidamos de ti</h3>
-            <p>Reserva tus citas fácilmente</p>
+            <h2 className="text-light">Agenda tu cita ahora</h2>
+            <p>Fácil, rápido y sin complicaciones</p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
 
+      {/* SERVICIOS */}
       <div className="container py-5">
-        <h2 className="text-center mb-4">¿En qué podemos ayudarte?</h2>
+        <h2 className="text-center mb-4" style={{ color: '#1e3144' }}>¿En qué podemos ayudarte?</h2>
         <div className="row g-4">
-          <div className="col-md-3">
-            <div className="p-4 border rounded text-center h-100">
-              <i className="bi bi-calendar3 display-4 mb-3"></i>
-              <h5>Reserva una cita</h5>
-              <p>Reserva una cita a través de nuestro canal digital</p>
-              <Link to="/reservar" className="btn btn-primary">Reservar</Link>
+          {[
+            { icon: "calendar3", title: "Reserva una cita", desc: "Agenda desde casa", link: "/reservar", label: "Reservar" },
+            { icon: "person-vcard", title: "Staff Médico", desc: "Conoce a nuestros especialistas", link: "/doctores", label: "Conoce al Staff" },
+            { icon: "journal-medical", title: "Servicios", desc: "Consulta nuestros servicios", link: "/servicios", label: "Conoce más" },
+            { icon: "people", title: "Pacientes", desc: "Atención integral para ti", link: "/pacientes", label: "Ver más" },
+          ].map((item, idx) => (
+            <div className="col-md-3" key={idx}>
+              <div className="p-4 border rounded text-center h-100 bg-light shadow-sm">
+                <i className={`bi bi-${item.icon} display-4 mb-3`} style={{ color: '#1e3144' }}></i>
+                <h5>{item.title}</h5>
+                <p>{item.desc}</p>
+                <Link to={item.link} className="btn" style={{ backgroundColor: '#000', color: '#fff' }}>{item.label}</Link>
+              </div>
             </div>
-          </div>
-          <div className="col-md-3">
-            <div className="p-4 border rounded text-center h-100">
-              <i className="bi bi-person-vcard display-4 mb-3"></i>
-              <h5>Staff Médico</h5>
-              <p>Conoce a tu doctor de confianza y sus horarios</p>
-              <Link to="/doctores" className="btn btn-primary">Conoce al Staff</Link>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="p-4 border rounded text-center h-100">
-              <i className="bi bi-journal-medical display-4 mb-3"></i>
-              <h5>Servicios</h5>
-              <p>Conoce los servicios que brindamos</p>
-              <Link to="/servicios" className="btn btn-primary">Conoce más</Link>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="p-4 border rounded text-center h-100">
-              <i className="bi bi-people display-4 mb-3"></i>
-              <h5>Pacientes</h5>
-              <p>Atención integral en tu bienestar y el de tu familia</p>
-              <Link to="/pacientes" className="btn btn-primary">Conoce más</Link>
-            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* VALORES */}
+      <div style={{ backgroundColor: '#1e3144' }} className="text-white py-5">
+        <div className="container text-center">
+          <h3 className="mb-4">Nuestros valores nos definen</h3>
+          <div className="row">
+            {['Calidez Humana', 'Tecnología Moderna', 'Profesionales Expertos', 'Atención Rápida'].map((val, i) => (
+              <div className="col-md-3 mb-3" key={i}>
+                <div className="p-3 bg-white text-dark rounded shadow-sm h-100 fw-bold">{val}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
+
+      {/* TESTIMONIOS */}
+      <div className="container py-5">
+        <h3 className="text-center mb-4" style={{ color: '#1e3144' }}>Testimonios de nuestros pacientes</h3>
+        <div className="row g-4">
+          {[
+            { name: "Ana R.", text: "Excelente atención, rápida y profesional." },
+            { name: "Carlos M.", text: "Los doctores son muy empáticos y me ayudaron bastante." },
+            { name: "Lucía G.", text: "Recomiendo la clínica, muy moderna y eficiente." },
+          ].map((test, idx) => (
+            <div className="col-md-4" key={idx}>
+              <div className="border p-4 rounded shadow-sm h-100">
+                <p className="fst-italic">"{test.text}"</p>
+                <h6 className="mt-3 text-end">- {test.name}</h6>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className="py-4 text-center" style={{ backgroundColor: '#ffc107', color: '#1e3144' }}>
+        <h4>¿Listo para cuidar tu salud?</h4>
+        <Link to="/reservar" className="btn mt-2" style={{ backgroundColor: '#000', color: '#fff' }}>Reserva tu cita ahora</Link>
+      </div>
+
+      {/* FOOTER */}
+      <footer className="text-light py-4 mt-5" style={{ backgroundColor: '#1e3144' }}>
+        <div className="container text-center">
+          <p className="mb-1">&copy; 2025 ClínicaSalud+. Todos los derechos reservados.</p>
+          <small>Contacto: contacto@clinicasalud.com | Tel: (01) 234-5678</small>
+        </div>
+      </footer>
     </div>
   );
 }
