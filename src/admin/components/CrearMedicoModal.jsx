@@ -25,12 +25,7 @@ function MedicoModal({ onClose, onSuccess, modo = 'crear', medico = null }) {
         ]);
 
         setEspecialidades(espResponse.data || []);
-
-        // 🔷 Filtrar solo los personales con rol 'medico'
-        const soloMedicos = (perResponse.data || []).filter(
-          p => p.rol === 'medico'
-        );
-
+        const soloMedicos = (perResponse.data || []).filter(p => p.rol === 'medico');
         setPersonales(soloMedicos);
         setFiltrados(soloMedicos);
       } catch (err) {
@@ -85,21 +80,22 @@ function MedicoModal({ onClose, onSuccess, modo = 'crear', medico = null }) {
       onSuccess();
       onClose();
     } catch (err) {
-      //Importante error q manda el backend
       if (err.response?.data?.message) {
         setError(err.response.data.message);
       } else {
         setError('Error al procesar la solicitud');
       }
     }
-
   };
 
   return (
     <div className="modal fade show d-block" tabIndex="-1" style={{ background: 'rgba(0,0,0,0.5)' }}>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content shadow-lg rounded-4 border-0">
-          <div className="modal-header bg-primary text-white rounded-top-4">
+          <div
+            className="modal-header text-white rounded-top-4"
+            style={{ backgroundColor: '#1e3144' }}
+          >
             <h4 className="modal-title">
               {modo === 'crear' ? 'Registrar Médico' : 'Editar Médico'}
             </h4>
@@ -172,7 +168,11 @@ function MedicoModal({ onClose, onSuccess, modo = 'crear', medico = null }) {
             </div>
 
             <div className="modal-footer d-flex justify-content-end gap-2 bg-light rounded-bottom-4">
-              <button type="submit" className="btn btn-primary rounded-pill px-4">
+              <button
+                type="submit"
+                className="btn rounded-pill px-4"
+                style={{ backgroundColor: '#1e3144', color: 'white' }}
+              >
                 {modo === 'crear' ? 'Registrar' : 'Actualizar'}
               </button>
               <button

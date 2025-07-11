@@ -31,7 +31,9 @@ export default function Citas() {
   const [fechaHasta, setFechaHasta] = useState("");
   const [modalConsulta, setModalConsulta] = useState(null);
 
-  useEffect(() => { cargarCitas(); }, []);
+  useEffect(() => {
+    cargarCitas();
+  }, []);
 
   const cargarCitas = async () => {
     setLoading(true);
@@ -102,18 +104,21 @@ export default function Citas() {
   return (
     <div className="container-fluid py-4 px-3">
       <div className="card shadow rounded">
-        <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-          <h4 className="mb-0">Gestión de Citas</h4>
+        <div
+          className="card-header d-flex justify-content-between align-items-center text-white"
+          style={{ backgroundColor: "#1e3144", borderTopLeftRadius: "1rem", borderTopRightRadius: "1rem" }}
+        >
+          <h4 className="mb-0 fw-semibold">Gestión de Citas</h4>
           <button
-            className="btn btn-light btn-sm"
+            className="btn btn-light fw-semibold px-4 py-2 rounded-pill shadow-sm"
             disabled={!!filtradasDni}
             onClick={() => setMostrarModalCrear(true)}
           >
-            Nueva Cita
+            + Nueva Cita
           </button>
         </div>
 
-        <div className="card-body">
+        <div className="card-body bg-light rounded-bottom p-4">
           {/* Filtros */}
           <div className="row g-3 mb-3">
             <div className="col-md-4">
@@ -204,19 +209,12 @@ export default function Citas() {
               No hay citas encontradas.
             </div>
           ) : (
-            <div
-              className="table-responsive"
-              style={{
-                maxHeight: "420px",
-                overflowY: "auto",
-                border: "1px solid #dee2e6",
-                borderRadius: "0.375rem",
-              }}
-            >
+            <div className="table-responsive" style={{ border: "1px solid #dee2e6", borderRadius: "0.375rem" }}>
               <table className="table table-hover table-bordered align-middle mb-0">
                 <thead
-                  className="table-light"
+                  className="text-white"
                   style={{
+                    backgroundColor: "#1e3144",
                     position: "sticky",
                     top: 0,
                     zIndex: 1,
@@ -244,19 +242,13 @@ export default function Citas() {
                         <td>{cita.id_cita}</td>
                         <td>{cita.fecha}</td>
                         <td>{cita.hora}</td>
-                        <td>
-                          {p.nombres} {p.apellido_paterno} {p.apellido_materno}
-                        </td>
+                        <td>{`${p.nombres} ${p.apellido_paterno} ${p.apellido_materno}`}</td>
                         <td>{p.dni}</td>
                         <td>{cita.motivo}</td>
-                        <td>
-                          {m.id_personal.nombres} {m.id_personal.apellido_paterno}
-                        </td>
+                        <td>{`${m.id_personal.nombres} ${m.id_personal.apellido_paterno}`}</td>
                         <td>{m.id_especialidad.nombre}</td>
                         <td>
-                          <span
-                            className={`badge ${BADGE_CLASSES[cita.estado] || "bg-secondary"}`}
-                          >
+                          <span className={`badge ${BADGE_CLASSES[cita.estado] || "bg-secondary"}`}>
                             {cita.estado}
                           </span>
                         </td>
@@ -311,7 +303,6 @@ export default function Citas() {
           onSuccess={cargarCitas}
         />
       )}
-
     </div>
   );
 }
