@@ -2,7 +2,7 @@ import { useState } from "react";
 import { loginPaciente } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/LoginPaciente.css";
 
 function LoginPaciente() {
@@ -40,21 +40,21 @@ function LoginPaciente() {
   };
 
   return (
-    <div className="container-fluid vh-100">
-      <div className="row h-100">
-        {/* Columna de la imagen */}
-        <div className="col-md-6 d-none d-md-flex bg-light align-items-center justify-content-center p-0">
+    <div className="container-fluid login-paciente-container">
+      <div className="row min-vh-100">
+        {/* Imagen en pantallas grandes */}
+        <div className="col-lg-6 d-none d-lg-flex align-items-center justify-content-center p-0">
           <img
             src="/images/CLinicaTTLO.png"
             alt="Clínica"
-            className="img-fluid h-100 w-100 object-fit-cover"
+            className="img-fluid w-100 h-100"
             style={{ objectFit: "cover" }}
           />
         </div>
 
-        {/* Columna del formulario */}
-        <div className="col-md-6 d-flex align-items-center justify-content-center">
-          <div className="w-75">
+        {/* Formulario en todos los tamaños */}
+        <div className="col-12 col-lg-6 d-flex align-items-center justify-content-center p-4">
+          <div className="w-100" style={{ maxWidth: "400px" }}>
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h3>Iniciar Sesión</h3>
               <button

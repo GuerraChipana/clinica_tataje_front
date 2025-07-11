@@ -19,7 +19,7 @@ import Cli_Especialidad from './pages/Cli_Especialidad.jsx';
 import Nosotros from './pages/Nosotros.jsx';
 
 import PrivateRoute from './components/PrivateRoute.jsx';
-import Doctores from './pages/Doctores.jsx';
+import Doctores from './pages/Doctores.jsx'; 
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
       {/* Rutas públicas */}
       <Route path="/" element={<Home />} />
       <Route path="/especialidad" element={<Cli_Especialidad />} />
-      <Route path="/medicos" element={<Doctores />} />
+      <Route path="/medicos" element={<Doctores />} /> {/* Aquí accede Doctores.jsx */}
       <Route path="/nosotros" element={<Nosotros />} />
       <Route path="/login-paciente" element={<LoginPaciente />} />
       <Route path="/registro-paciente" element={<RegistrarsePaciente />} />
@@ -47,7 +47,6 @@ function App() {
           <Route path="historial" element={<Historial_Clinico />} />
           <Route path="cuenta" element={<MiCuenta />} />
 
-          {/* Aquí protegemos sólo para superadministrador y administrador */}
           <Route element={<PrivateRoute allowedRoles={['superadministrador', 'administrador']} />}>
             <Route path="personal" element={<PersonalClinico />} />
             <Route path="especialidades" element={<Especialidades />} />
