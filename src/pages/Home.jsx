@@ -8,9 +8,11 @@ function Home() {
   return (
     <div>
       {/* NAVBAR */}
-      <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#1e3144' }}>
+      <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#ff7f00' }}>
         <div className="container-fluid">
-          <Link className="navbar-brand text-white fw-bold" to="/">ClínicaSalud+</Link>
+          <Link className="navbar-brand" to="/">
+            <img src="/images/logo.jpg" alt="Clínica" style={{ height: '60px' }} />
+          </Link>
           <button className="navbar-toggler d-lg-none text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -23,7 +25,7 @@ function Home() {
                 </li>
               ))}
             </ul>
-            <Link to="/login-paciente" className="btn btn-light ms-3" style={{ backgroundColor: '#000', color: '#fff' }}>Iniciar Sesión</Link>
+            <Link to="/login-paciente" className="btn btn-dark ms-3">Iniciar Sesión</Link>
           </div>
 
           <div className="offcanvas offcanvas-end text-bg-dark d-lg-none" id="offcanvasNavbar">
@@ -39,20 +41,20 @@ function Home() {
                 <li className="nav-item"><Link className="nav-link text-white" to="/historial">Historial</Link></li>
                 <li className="nav-item"><Link className="nav-link text-white" to="/contacto">Contacto</Link></li>
               </ul>
-              <Link to="/login-paciente" className="btn mt-3 w-100" style={{ backgroundColor: '#000', color: '#fff' }}>Iniciar Sesión</Link>
+              <Link to="/login-paciente" className="btn mt-3 w-100 btn-dark">Iniciar Sesión</Link>
             </div>
           </div>
         </div>
       </nav>
 
       {/* CAROUSEL */}
-<Carousel controls={false} indicators={true}>
+      <Carousel controls={false} indicators={true}>
         <Carousel.Item>
           <img className="d-block w-100" src="/images/banner1.jpg" alt="Banner 1" style={{ height: '400px', objectFit: 'cover' }} />
           <Carousel.Caption>
             <h2 className="text-light">Miércoles de Bienestar</h2>
             <p>Cuidamos tu salud con los mejores especialistas</p>
-            <Link to="/contacto" className="btn" style={{ backgroundColor: '#000', color: '#fff' }}>Contáctanos</Link>
+            <Link to="/contacto" className="btn btn-dark">Contáctanos</Link>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -66,9 +68,9 @@ function Home() {
 
       {/* SERVICIOS */}
       <div className="container py-5">
-        <h2 className="text-center mb-4" style={{ color: '#1e3144' }}>¿En qué podemos ayudarte?</h2>
+        <h2 className="text-center mb-4" style={{ color: '#ff7f00' }}>¿En qué podemos ayudarte?</h2>
         <div className="row g-4">
-          {[
+          {[ 
             { icon: "calendar3", title: "Reserva una cita", desc: "Agenda desde casa", link: "/reservar", label: "Reservar" },
             { icon: "person-vcard", title: "Staff Médico", desc: "Conoce a nuestros especialistas", link: "/doctores", label: "Conoce al Staff" },
             { icon: "journal-medical", title: "Servicios", desc: "Consulta nuestros servicios", link: "/servicios", label: "Conoce más" },
@@ -76,10 +78,10 @@ function Home() {
           ].map((item, idx) => (
             <div className="col-md-3" key={idx}>
               <div className="p-4 border rounded text-center h-100 bg-light shadow-sm">
-                <i className={`bi bi-${item.icon} display-4 mb-3`} style={{ color: '#1e3144' }}></i>
+                <i className={`bi bi-${item.icon} display-4 mb-3`} style={{ color: '#ff7f00' }}></i>
                 <h5>{item.title}</h5>
                 <p>{item.desc}</p>
-                <Link to={item.link} className="btn" style={{ backgroundColor: '#000', color: '#fff' }}>{item.label}</Link>
+                <Link to={item.link} className="btn btn-dark">{item.label}</Link>
               </div>
             </div>
           ))}
@@ -87,7 +89,7 @@ function Home() {
       </div>
 
       {/* VALORES */}
-      <div style={{ backgroundColor: '#1e3144' }} className="text-white py-5">
+      <div style={{ backgroundColor: '#ff7f00' }} className="text-white py-5">
         <div className="container text-center">
           <h3 className="mb-4">Nuestros valores nos definen</h3>
           <div className="row">
@@ -102,9 +104,9 @@ function Home() {
 
       {/* TESTIMONIOS */}
       <div className="container py-5">
-        <h3 className="text-center mb-4" style={{ color: '#1e3144' }}>Testimonios de nuestros pacientes</h3>
+        <h3 className="text-center mb-4" style={{ color: '#ff7f00' }}>Testimonios de nuestros pacientes</h3>
         <div className="row g-4">
-          {[
+          {[ 
             { name: "Ana R.", text: "Excelente atención, rápida y profesional." },
             { name: "Carlos M.", text: "Los doctores son muy empáticos y me ayudaron bastante." },
             { name: "Lucía G.", text: "Recomiendo la clínica, muy moderna y eficiente." },
@@ -120,16 +122,16 @@ function Home() {
       </div>
 
       {/* CTA */}
-      <div className="py-4 text-center" style={{ backgroundColor: '#ffc107', color: '#1e3144' }}>
+      <div className="py-4 text-center" style={{ backgroundColor: '#ff7f00', color: '#fff' }}>
         <h4>¿Listo para cuidar tu salud?</h4>
-        <Link to="/reservar" className="btn mt-2" style={{ backgroundColor: '#000', color: '#fff' }}>Reserva tu cita ahora</Link>
+        <Link to="/reservar" className="btn btn-dark mt-2">Reserva tu cita ahora</Link>
       </div>
 
       {/* FOOTER */}
-      <footer className="text-light py-4 mt-5" style={{ backgroundColor: '#1e3144' }}>
+      <footer className="text-light py-4 mt-5" style={{ backgroundColor: '#000000ff' }}>
         <div className="container text-center">
-          <p className="mb-1">&copy; 2025 ClínicaSalud+. Todos los derechos reservados.</p>
-          <small>Contacto: contacto@clinicasalud.com | Tel: (01) 234-5678</small>
+          <p className="mb-1">&copy; 2025 ClínicaTataje. Todos los derechos reservados.</p>
+          <small>Contacto: contacto@clinicatataje.com | Tel: (01) 234-5678</small>
         </div>
       </footer>
     </div>
