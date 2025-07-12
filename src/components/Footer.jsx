@@ -13,8 +13,8 @@ function Footer() {
           <div className="col-md-4 mb-3">
             <h5 className="text-warning">Contacto</h5>
             <ul className="list-unstyled">
-              <li><strong>Dirección:</strong> Av. Salud 123, Lima, Perú</li>
-              <li><strong>Teléfono:</strong> (01) 234-5678</li>
+              <li><strong>Dirección:</strong> Av Conde de Nieva 355, Ica </li>
+              <li><strong>Teléfono:</strong> (+51) 953 362 254</li>
               <li><strong>Correo electrónico:</strong> contacto@clinicatataje.com</li>
             </ul>
           </div>
