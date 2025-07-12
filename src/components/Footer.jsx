@@ -1,9 +1,50 @@
-function Footer() {
+import '../styles/Footer.css'
+function Footer() { 
   return (
-    <footer className="text-light py-4 mt-5" style={{ backgroundColor: '#000000ff' }}>
-      <div className="container text-center">
-        <p className="mb-1">&copy; 2025 ClínicaTataje. Todos los derechos reservados.</p>
-        <small>Contacto: contacto@clinicatataje.com | Tel: (01) 234-5678</small>
+    <footer className="text-light py-5 mt-5" style={{ backgroundColor: '#000000ff' }}>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4 mb-3">
+            <h5 className="text-warning">Sobre Clínica Tataje</h5>
+            <p>En Clínica Tataje, nos dedicamos a ofrecerte atención médica de calidad. Contamos con un equipo profesional comprometido con tu salud y bienestar.</p>
+            <p>&copy; 2025 ClínicaTataje. Todos los derechos reservados.</p>
+          </div>
+
+          <div className="col-md-4 mb-3">
+            <h5 className="text-warning">Contacto</h5>
+            <ul className="list-unstyled">
+              <li><strong>Dirección:</strong> Av. Salud 123, Lima, Perú</li>
+              <li><strong>Teléfono:</strong> (01) 234-5678</li>
+              <li><strong>Correo electrónico:</strong> contacto@clinicatataje.com</li>
+            </ul>
+          </div>
+
+          <div className="col-md-4 mb-3">
+            <h5 className="text-warning">Enlaces Rápidos</h5>
+            <ul className="list-unstyled">
+              <li><a href="/sobre-nosotros" className="text-light">Sobre Nosotros</a></li>
+              <li><a href="/política-privacidad" className="text-light">Política de Privacidad</a></li>
+              <li><a href="/terminos-servicio" className="text-light">Términos de Servicio</a></li>
+              <li><a href="/contacto" className="text-light">Contáctanos</a></li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Redes Sociales */}
+        <div className="text-center">
+          <h5 className="text-warning">Síguenos</h5>
+          <div>
+            <a href="https://www.facebook.com/clinicatataje" target="_blank" rel="noopener noreferrer" className="mx-2">
+              <i className="bi bi-facebook" style={{ fontSize: '1.5rem', color: '#ff7f00' }}></i>
+            </a>
+            <a href="https://www.instagram.com/clinicatataje" target="_blank" rel="noopener noreferrer" className="mx-2">
+              <i className="bi bi-instagram" style={{ fontSize: '1.5rem', color: '#ff7f00' }}></i>
+            </a>
+            <a href="https://twitter.com/clinicatataje" target="_blank" rel="noopener noreferrer" className="mx-2">
+              <i className="bi bi-twitter" style={{ fontSize: '1.5rem', color: '#ff7f00' }}></i>
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );

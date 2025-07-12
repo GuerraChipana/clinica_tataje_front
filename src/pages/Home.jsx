@@ -36,7 +36,7 @@ function Home() {
         <div className="row g-4">
           {[ 
             { icon: "calendar3", title: "Reserva una cita", desc: "Agenda desde casa", link: "/reservar", label: "Reservar" },
-            { icon: "person-vcard", title: "Staff Médico", desc: "Conoce a nuestros especialistas", link: "/doctores", label: "Conoce al Staff" },
+            { icon: "person-vcard", title: "Staff Médico", desc: "Conoce a nuestros especialistas", link: "/staffMedico", label: "Conoce al Staff" },
             { icon: "journal-medical", title: "Servicios", desc: "Consulta nuestros servicios", link: "/servicios", label: "Conoce más" },
             { icon: "people", title: "Pacientes", desc: "Atención integral para ti", link: "/pacientes", label: "Ver más" },
           ].map((item, idx) => (

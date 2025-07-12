@@ -20,6 +20,8 @@ import Nosotros from './pages/Nosotros.jsx';
 
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Doctores from './pages/Doctores.jsx'; 
+import StaffMedico from './pages/StaffMedico.jsx';
+import Servicios from './pages/Servicios.jsx';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
       <Route path="/login-paciente" element={<LoginPaciente />} />
       <Route path="/registro-paciente" element={<RegistrarsePaciente />} />
       <Route path="/login/personal" element={<LoginAdm />} />
+      <Route path="/staffmedico" element={<StaffMedico/>} />
+      <Route path="/servicios" element={<Servicios />} />
 
       {/* Rutas protegidas para PACIENTE */}
       <Route element={<PrivateRoute allowedRoles={['paciente']} />}>
