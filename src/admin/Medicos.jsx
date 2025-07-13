@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import {
-  obtenerMedicos,
-  eliminarMedico,
-} from '../services/medicoService';
+import { obtenerMedicos, eliminarMedico } from '../services/medicoService';
 import MedicoModal from './components/CrearMedicoModal';
+import { FaEdit, FaTrashAlt, FaUserMd } from 'react-icons/fa';
+import { BsPlusLg } from 'react-icons/bs';
+import Swal from 'sweetalert2';
 
 function Medicos() {
   const [medicos, setMedicos] = useState([]);
@@ -37,26 +37,50 @@ function Medicos() {
   };
 
   const handleEliminar = async (id) => {
-    if (window.confirm('¿Estás seguro de eliminar este médico?')) {
+    const confirmacion = await Swal.fire({
+      title: '¿Eliminar médico?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    });
+
+    if (confirmacion.isConfirmed) {
       try {
         await eliminarMedico(id);
-        cargarMedicos();
+        await cargarMedicos();
+
+        Swal.fire({
+          title: 'Eliminado',
+          text: 'El médico ha sido eliminado correctamente.',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+        });
       } catch (error) {
         console.error('Error al eliminar médico', error);
+        Swal.fire('Error', 'No se pudo eliminar el médico.', 'error');
       }
     }
   };
 
   return (
     <div className="container py-4">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2>Médicos Registrados</h2>
-        <button className="btn btn-primary" onClick={abrirModalCrear}>Registrar Médico</button>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2 className="text-primary fw-bold">
+          <FaUserMd className="me-2" />
+          Médicos Registrados
+        </h2>
+        <button className="btn btn-success d-flex align-items-center" onClick={abrirModalCrear}>
+          <BsPlusLg className="me-2" /> Registrar Médico
+        </button>
       </div>
 
       <div className="table-responsive">
-        <table className="table table-bordered table-striped">
-          <thead className="table-dark text-center">
+        <table className="table table-hover align-middle shadow-sm border rounded">
+          <thead className="table-primary text-center">
             <tr>
               <th>#</th>
               <th>Nombre</th>
@@ -66,35 +90,42 @@ function Medicos() {
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            {medicos.map((medico) => (
-              <tr key={medico.id_medico}>
-                <td>{medico.id_medico}</td>
-                <td>{medico.personal_clinico?.nombres || 'No disponible'}</td>
-                <td>
-                  {(medico.personal_clinico?.apellido_paterno || '') + ' ' +
-                    (medico.personal_clinico?.apellido_materno || '')}
-                </td>
-                <td>{medico.personal_clinico?.email || 'No disponible'}</td>
-                <td>{medico.especialidad?.nombre || 'No asignado'}</td>
-                <td>
-                  <button
-                    className="btn btn-sm btn-warning me-2"
-                    onClick={() => abrirModalEditar(medico)}
-                  >
-                    Editar
-                  </button>
-                  <button
-                    className="btn btn-sm btn-danger"
-                    onClick={() => handleEliminar(medico.id_medico)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
+          <tbody className="text-center">
+            {medicos.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="text-muted py-4">No hay médicos registrados</td>
               </tr>
-            ))}
+            ) : (
+              medicos.map((medico) => (
+                <tr key={medico.id_medico}>
+                  <td>{medico.id_medico}</td>
+                  <td>{medico.personal_clinico?.nombres || 'No disponible'}</td>
+                  <td>
+                    {(medico.personal_clinico?.apellido_paterno || '') + ' ' +
+                      (medico.personal_clinico?.apellido_materno || '')}
+                  </td>
+                  <td>{medico.personal_clinico?.email || 'No disponible'}</td>
+                  <td>{medico.especialidad?.nombre || 'No asignado'}</td>
+                  <td>
+                    <button
+                      className="btn btn-outline-warning btn-sm me-2"
+                      title="Editar"
+                      onClick={() => abrirModalEditar(medico)}
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-outline-danger btn-sm"
+                      title="Eliminar"
+                      onClick={() => handleEliminar(medico.id_medico)}
+                    >
+                      <FaTrashAlt />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
-
         </table>
       </div>
 

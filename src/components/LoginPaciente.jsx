@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { loginPaciente } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/LoginPaciente.css";
 
 function LoginPaciente() {
   const [dni, setDni] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -17,7 +18,6 @@ function LoginPaciente() {
 
     try {
       const response = await loginPaciente({ dni, password });
-
       const token = response.data.access_token;
       const expiration = response.data.token_expiration;
 
@@ -52,7 +52,7 @@ function LoginPaciente() {
           />
         </div>
 
-        {/* Formulario en todos los tamaños */}
+        {/* Formulario */}
         <div className="col-12 col-lg-6 d-flex align-items-center justify-content-center p-4">
           <div className="w-100" style={{ maxWidth: "400px" }}>
             <div className="d-flex justify-content-between align-items-center mb-4">
@@ -83,14 +83,24 @@ function LoginPaciente() {
               </div>
               <div className="mb-3">
                 <label className="form-label">Contraseña</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="form-control"
-                  placeholder="Ingresa tu contraseña"
-                />
+                <div className="input-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="form-control"
+                    placeholder="Ingresa tu contraseña"
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    onClick={() => setShowPassword(!showPassword)}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </div>
               {error && (
                 <div className="alert alert-danger text-center">{error}</div>

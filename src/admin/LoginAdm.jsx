@@ -92,7 +92,7 @@ function LoginAdm() {
           <button
             type="submit"
             className="btn w-100 mt-3"
-            style={{ backgroundColor: "#1e3144", color: "white", fontWeight: "bold" }}
+            style={{ backgroundColor: "#ff7f00", color: "white", fontWeight: "bold" }}
           >
             Iniciar sesión
           </button>

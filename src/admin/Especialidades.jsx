@@ -4,6 +4,7 @@ import {
   eliminarEspecialidad
 } from '../services/especialidadesServices.js';
 import CrearEspecialidadModal from './components/CrearEspecialidadModal.jsx';
+import Swal from 'sweetalert2';
 
 function Especialidades() {
   const [especialidades, setEspecialidades] = useState([]);
@@ -34,12 +35,31 @@ function Especialidades() {
   };
 
   const handleEliminar = async (id) => {
-    if (window.confirm('¿Estás seguro de eliminar esta especialidad?')) {
+    const confirmacion = await Swal.fire({
+      title: '¿Eliminar especialidad?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    });
+
+    if (confirmacion.isConfirmed) {
       try {
         await eliminarEspecialidad(id);
         cargarEspecialidades();
+
+        Swal.fire({
+          title: 'Eliminado',
+          text: 'La especialidad ha sido eliminada correctamente.',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+        });
       } catch (err) {
         console.error('Error al eliminar especialidad:', err);
+        Swal.fire('Error', 'No se pudo eliminar la especialidad.', 'error');
       }
     }
   };

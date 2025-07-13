@@ -9,6 +9,7 @@ import ModalCita from "./components/citas/ModalCita";
 import ModalCrearCita from "./components/citas/ModalCrearCita";
 import { FaTimes, FaCalendarAlt } from "react-icons/fa";
 import ModalRegistrarConsulta from "./components/citas/ModalRegistrarConsulta";
+import Swal from "sweetalert2";
 
 const BADGE_CLASSES = {
   REALIZADA: "bg-success",
@@ -60,9 +61,9 @@ export default function Citas() {
     setErrorDni(null);
     try {
       const res = await getPacientes();
-      const paciente = res.data.find(p => p.dni === dni);
+      const paciente = res.data.find((p) => p.dni === dni);
       if (!paciente) return setErrorDni("Paciente no encontrado.");
-      const filtradas = citas.filter(c => c.id_paciente.id_paciente === paciente.id_paciente);
+      const filtradas = citas.filter((c) => c.id_paciente.id_paciente === paciente.id_paciente);
       setFiltradasDni(filtradas);
     } catch {
       setErrorDni("Error al buscar por DNI.");
@@ -72,18 +73,41 @@ export default function Citas() {
   };
 
   const actualizarCitaLocal = (id, cambios) => {
-    const update = (lista) => lista.map(c => c.id_cita === id ? { ...c, ...cambios } : c);
-    setCitas(prev => update(prev));
-    if (filtradasDni) setFiltradasDni(prev => update(prev));
+    const update = (lista) => lista.map((c) => (c.id_cita === id ? { ...c, ...cambios } : c));
+    setCitas((prev) => update(prev));
+    if (filtradasDni) setFiltradasDni((prev) => update(prev));
   };
 
   const cancelarCita = async (id) => {
-    if (!window.confirm("¿Cancelar esta cita?")) return;
+    const result = await Swal.fire({
+      title: "¿Cancelar esta cita?",
+      text: "Esta acción no se puede deshacer.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, cancelar",
+      cancelButtonText: "No, volver",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#6c757d",
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       await cambiarEstadoCita(id, "CANCELADA");
       actualizarCitaLocal(id, { estado: "CANCELADA" });
+
+      Swal.fire({
+        title: "Cita cancelada",
+        text: "La cita ha sido cancelada correctamente.",
+        icon: "success",
+        confirmButtonColor: "#1e3144",
+      });
     } catch {
-      alert("Error al cancelar la cita.");
+      Swal.fire({
+        title: "Error",
+        text: "No se pudo cancelar la cita.",
+        icon: "error",
+      });
     }
   };
 
@@ -98,8 +122,8 @@ export default function Citas() {
   };
 
   const citasParaMostrar = (filtradasDni ?? citas)
-    .filter(c => filtro === "TODAS" || c.estado === filtro)
-    .filter(c => (!fechaDesde || c.fecha >= fechaDesde) && (!fechaHasta || c.fecha <= fechaHasta));
+    .filter((c) => filtro === "TODAS" || c.estado === filtro)
+    .filter((c) => (!fechaDesde || c.fecha >= fechaDesde) && (!fechaHasta || c.fecha <= fechaHasta));
 
   return (
     <div className="container-fluid py-4 px-3">
@@ -197,7 +221,7 @@ export default function Citas() {
             </div>
           )}
 
-          {/* Contenido */}
+          {/* Tabla de citas */}
           {loading ? (
             <div className="text-center py-4">
               <div className="spinner-border text-primary" role="status" />
@@ -205,20 +229,13 @@ export default function Citas() {
           ) : error ? (
             <div className="alert alert-danger">{error}</div>
           ) : citasParaMostrar.length === 0 ? (
-            <div className="alert alert-info text-center">
-              No hay citas encontradas.
-            </div>
+            <div className="alert alert-info text-center">No hay citas encontradas.</div>
           ) : (
             <div className="table-responsive" style={{ border: "1px solid #dee2e6", borderRadius: "0.375rem" }}>
               <table className="table table-hover table-bordered align-middle mb-0">
                 <thead
                   className="text-white"
-                  style={{
-                    backgroundColor: "#1e3144",
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 1,
-                  }}
+                  style={{ backgroundColor: "#1e3144", position: "sticky", top: 0, zIndex: 1 }}
                 >
                   <tr>
                     <th>N° Cita</th>
