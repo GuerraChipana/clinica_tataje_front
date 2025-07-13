@@ -53,18 +53,27 @@ function Home() {
       </div>
 
       {/* VALORES */}
-      <div style={{ backgroundColor: '#ff7f00' }} className="text-white py-5">
+      <div className="py-5" style={{ backgroundColor: '#fff5e6' }}>
         <div className="container text-center">
-          <h3 className="mb-4">Nuestros valores nos definen</h3>
-          <div className="row">
-            {['Calidez Humana', 'Tecnología Moderna', 'Profesionales Expertos', 'Atención Rápida'].map((val, i) => (
-              <div className="col-md-3 mb-3" key={i}>
-                <div className="p-3 bg-white text-dark rounded shadow-sm h-100 fw-bold">{val}</div>
+          <h3 className="mb-5" style={{ color: '#ff7f00' }}>Nuestros valores nos definen</h3>
+          <div className="row g-4">
+            {[
+              { icon: "emoji-smile", title: "Calidez Humana" },
+              { icon: "cpu", title: "Tecnología Moderna" },
+              { icon: "people-fill", title: "Profesionales Expertos" },
+              { icon: "stopwatch", title: "Atención Rápida" },
+            ].map((item, idx) => (
+              <div className="col-md-3" key={idx}>
+                <div className="bg-white border rounded shadow-sm p-4 h-100 d-flex flex-column align-items-center justify-content-center hover-effect">
+                  <i className={`bi bi-${item.icon} display-4 mb-3`} style={{ color: '#ff7f00' }}></i>
+                  <h5 className="fw-bold">{item.title}</h5>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+
 
       {/* TESTIMONIOS */}
       <div className="container py-5">
