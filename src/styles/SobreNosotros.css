@@ -1,0 +1,112 @@
+/* Sección de Introducción */
+.about-hero {
+  background-image: url('https://i.pinimg.com/1200x/1f/44/e7/1f44e7a17893ad67bd604a4854c8a173.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+}
+
+/* Superposición con gradiente */
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);  /* Fondo oscuro con opacidad */
+  z-index: 1;
+}
+
+.about-hero h2, .about-hero p {
+  z-index: 2;
+  position: relative;
+  text-align: center;
+}
+
+.about-hero h2 {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.about-hero p {
+  font-size: 18px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Sección de Historia */
+.about-text {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.8;
+}
+
+.about-text br {
+  margin-bottom: 10px;
+}
+
+img.img-fluid {
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sección de Misión y Visión */
+.mission-box, .vision-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.mission-box h4, .vision-box h4 {
+  font-size: 24px;
+  color: #ff7f00;
+  margin-bottom: 15px;
+}
+
+.mission-box p, .vision-box p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Sección de Estadísticas */
+.stat-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.stat-box h4 {
+  font-size: 36px;
+  color: #ff7f00;
+  margin-bottom: 10px;
+}
+
+.stat-box p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .about-hero {
+    height: 300px;
+  }
+
+  .mission-box, .vision-box {
+    margin-bottom: 20px;
+  }
+
+  .stat-box {
+    margin-bottom: 15px;
+  }
+}
