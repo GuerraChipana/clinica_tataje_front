@@ -38,7 +38,7 @@ function Home() {
             { icon: "calendar3", title: "Reserva una cita", desc: "Agenda desde casa", link: "/reservar", label: "Reservar" },
             { icon: "person-vcard", title: "Staff Médico", desc: "Conoce a nuestros especialistas", link: "/staffMedico", label: "Conoce al Staff" },
             { icon: "journal-medical", title: "Servicios", desc: "Consulta nuestros servicios", link: "/servicios", label: "Conoce más" },
-            { icon: "people", title: "Pacientes", desc: "Atención integral para ti", link: "/pacientes", label: "Ver más" },
+            { icon: "people", title: "Especialidad", desc: "Atención integral para ti", link: "/especialidad", label: "Ver más" },
           ].map((item, idx) => (
             <div className="col-md-3" key={idx}>
               <div className="p-4 border rounded text-center h-100 bg-light shadow-sm">

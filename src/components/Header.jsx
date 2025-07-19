@@ -13,13 +13,29 @@ function Header() {
 
         <div className="collapse navbar-collapse d-none d-lg-flex justify-content-end">
           <ul className="navbar-nav">
-            {["Inicio", "Sobre Nosotros", "Paciente", "Historial", "Contacto"].map((item, i) => (
-              <li className="nav-item" key={i}>
-                <Link className="nav-link text-white" to={item === "Inicio" ? "/" : "/" + item.toLowerCase().replace(" ", "-")}>{item}</Link>
-              </li>
-            ))}
-          </ul>
-          <Link to="/login-paciente" className="btn btn-dark ms-3">Iniciar Sesión</Link>
+  {["Inicio", "Sobre Nosotros", "Especialidad", "Historial", "Contacto", "Perfil"].map((item, i) => {
+    let path = "/";
+
+    if (item === "Inicio") {
+      path = "/";
+    } else if (item === "Perfil") {
+      path = "/paciente-inicio";
+    } else if (item === "Historial") {
+      path = "/paciente-inicio";
+    } else {
+      path = "/" + item.toLowerCase().replace(" ", "-");
+    }
+
+    return (
+      <li className="nav-item" key={i}>
+        <Link className="nav-link text-white" to={path}>
+          {item}
+        </Link>
+      </li>
+    );
+  })}
+</ul>
+
         </div>
 
         <div className="offcanvas offcanvas-end text-bg-dark d-lg-none" id="offcanvasNavbar">
@@ -31,9 +47,11 @@ function Header() {
             <ul className="navbar-nav">
               <li className="nav-item"><Link className="nav-link text-white" to="/">Inicio</Link></li>
               <li className="nav-item"><Link className="nav-link text-white" to="/sobre-nosotros">Sobre Nosotros</Link></li>
-              <li className="nav-item"><Link className="nav-link text-white" to="/paciente">Paciente</Link></li>
-              <li className="nav-item"><Link className="nav-link text-white" to="/historial">Historial</Link></li>
+              <li className="nav-item"><Link className="nav-link text-white" to="/especialidad">Especialidades</Link></li>
+              <li className="nav-item"><Link className="nav-link text-white" to="/paciente-inicio">Historial</Link></li>
               <li className="nav-item"><Link className="nav-link text-white" to="/contacto">Contacto</Link></li>
+              <li className="nav-item"><Link className="nav-link text-white" to="/paciente-inicio">Perfil</Link></li>
+
             </ul>
             <Link to="/login-paciente" className="btn mt-3 w-100 btn-dark">Iniciar Sesión</Link>
           </div>
