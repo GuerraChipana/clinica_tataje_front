@@ -135,13 +135,13 @@ const InicioAdmin = () => {
           <div style={styles.footerColumn}>
             <h4 style={styles.footerHeading}>Síguenos</h4>
             <div style={styles.socialIcons}>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/profile.php?id=61553965242463" target="_blank" rel="noopener noreferrer">
                 <FaFacebookF />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/clinicatataje/" target="_blank" rel="noopener noreferrer">
                 <FaInstagram />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://twitter.com/clinicatataje" target="_blank" rel="noopener noreferrer">
                 <FaTwitter />
               </a>
             </div>
