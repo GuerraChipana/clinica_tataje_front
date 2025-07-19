@@ -13,7 +13,7 @@ function Header() {
 
         <div className="collapse navbar-collapse d-none d-lg-flex justify-content-end">
           <ul className="navbar-nav">
-            {["Inicio", "Sobre Nosotros", "Especialidades", "Historial", "Contacto"].map((item, i) => (
+            {["Inicio", "Sobre Nosotros", "Paciente", "Historial", "Contacto"].map((item, i) => (
               <li className="nav-item" key={i}>
                 <Link className="nav-link text-white" to={item === "Inicio" ? "/" : "/" + item.toLowerCase().replace(" ", "-")}>{item}</Link>
               </li>
@@ -31,7 +31,7 @@ function Header() {
             <ul className="navbar-nav">
               <li className="nav-item"><Link className="nav-link text-white" to="/">Inicio</Link></li>
               <li className="nav-item"><Link className="nav-link text-white" to="/sobre-nosotros">Sobre Nosotros</Link></li>
-              <li className="nav-item"><Link className="nav-link text-white" to="/especialidades">Especialidades</Link></li>
+              <li className="nav-item"><Link className="nav-link text-white" to="/paciente">Paciente</Link></li>
               <li className="nav-item"><Link className="nav-link text-white" to="/historial">Historial</Link></li>
               <li className="nav-item"><Link className="nav-link text-white" to="/contacto">Contacto</Link></li>
             </ul>
