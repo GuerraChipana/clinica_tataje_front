@@ -197,14 +197,15 @@ function Historial_Clinico() {
               <Card.Body style={{ maxHeight: '600px', overflowY: 'auto', background: '#f9f9f9' }}>
                 <Row xs={1} md={1} className="g-3">
                   {historialFiltrado.length > 0 ? (
-                    historialFiltrado.map((consulta) => (
-                      <Col key={consulta.id_consulta}>
-                        <Card className="h-100 shadow-sm border border-primary">
-                          <Card.Header className="bg-light text-center">
-                            <strong className="text-primary">
-                              Consulta #{consulta.id_consulta}
-                            </strong>
-                          </Card.Header>
+                    historialFiltrado.map((consulta, index) => (
+  <Col key={consulta.id_consulta}>
+    <Card className="h-100 shadow-sm border border-primary">
+      <Card.Header className="bg-light text-center">
+        <strong className="text-primary">
+          Consulta #{index + 1}
+        </strong>
+      </Card.Header>
+
                           <Card.Body>
                             <div className="d-flex justify-content-end mb-2">
                               <ConsultaPdfButton consulta={consulta} paciente={paciente} />
