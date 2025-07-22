@@ -16,7 +16,6 @@ import MiCuenta from './admin/MiCuenta.jsx';
 import Medicos from './admin/Medicos.jsx';
 
 import Cli_Especialidad from './pages/Cli_Especialidad.jsx';
-import Nosotros from './pages/Nosotros.jsx';
 
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Doctores from './pages/Doctores.jsx'; 
@@ -32,7 +31,6 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/especialidad" element={<Cli_Especialidad />} />
       <Route path="/medicos" element={<Doctores />} /> {/* Aquí accede Doctores.jsx */}
-      <Route path="/nosotros" element={<Nosotros />} />
       <Route path="/login-paciente" element={<LoginPaciente />} />
       <Route path="/registro-paciente" element={<RegistrarsePaciente />} />
       <Route path="/login/personal" element={<LoginAdm />} />

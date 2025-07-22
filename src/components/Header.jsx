@@ -13,7 +13,7 @@ function Header() {
 
         <div className="collapse navbar-collapse d-none d-lg-flex justify-content-end">
           <ul className="navbar-nav">
-            {["Inicio", "Sobre Nosotros", "Paciente", "Historial", "Contacto"].map((item, i) => (
+            {["Inicio", "Sobre Nosotros", "Especialidad", "Contacto"].map((item, i) => (
               <li className="nav-item" key={i}>
                 <Link className="nav-link text-white" to={item === "Inicio" ? "/" : "/" + item.toLowerCase().replace(" ", "-")}>{item}</Link>
               </li>
