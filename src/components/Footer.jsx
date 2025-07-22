@@ -34,7 +34,7 @@ function Footer() {
         <div className="text-center">
           <h5 className="text-warning">Síguenos</h5>
           <div>
-            <a href="https://www.facebook.com/clinicatataje" target="_blank" rel="noopener noreferrer" className="mx-2">
+            <a href="https://www.facebook.com/clinicatatajehttps://www.facebook.com/profile.php?id=61553965242463" target="_blank" rel="noopener noreferrer" className="mx-2">
               <i className="bi bi-facebook" style={{ fontSize: '1.5rem', color: '#ff7f00' }}></i>
             </a>
             <a href="https://www.instagram.com/clinicatataje" target="_blank" rel="noopener noreferrer" className="mx-2">
