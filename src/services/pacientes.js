@@ -41,3 +41,8 @@ export const misDatos = async (data)=> {
   return response.data;
 }
 
+export const actualizarCredenciales = async (datos) => {
+  const response = await axios.patch(`${API_URL}/cambio`, datos, getAuthHeaders());
+  return response.data;
+}
+
