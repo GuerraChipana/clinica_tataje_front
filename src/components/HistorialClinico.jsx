@@ -102,12 +102,12 @@ const HistorialClinico = ({ historial = [], paciente }) => {
 
             <Row xs={1} md={1} className="g-3">
               {historialFiltrado.length > 0 ? (
-                historialFiltrado.map(consulta => (
-                  <Col key={consulta.id_consulta || Math.random()}>
+                historialFiltrado.map((consulta, index) => (
+                  <Col key={consulta.id_consulta || index}>
                     <Card className="h-100 shadow-sm border border-success">
                       <Card.Header className="bg-light text-center">
                         <strong className="text-success">
-                          Consulta #{consulta.id_consulta || "—"}
+                          Consulta #{index + 1}
                         </strong>
                       </Card.Header>
                       <Card.Body>
@@ -150,4 +150,3 @@ const HistorialClinico = ({ historial = [], paciente }) => {
 };
 
 export default HistorialClinico;
-  

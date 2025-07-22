@@ -3,7 +3,7 @@
   background-image: url('https://i.pinimg.com/1200x/1f/44/e7/1f44e7a17893ad67bd604a4854c8a173.jpg');
   background-size: cover;
   background-position: center;
-  height: 400px;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -199,5 +199,3 @@ img.img-fluid {
   transform: scale(1.10);
   z-index: 10;
 }
-
-

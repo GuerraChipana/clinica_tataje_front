@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import LoginPaciente from './components/LoginPaciente.jsx';
 import RegistrarsePaciente from './components/RegisterPaciente.jsx';
-
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import PacienteHome from './pages/pacienteHome.jsx';
 import LoginAdm from './admin/LoginAdm.jsx';
 import AdminLayout from './admin/AdminLayout.jsx';

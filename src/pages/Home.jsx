@@ -39,25 +39,25 @@ function Home() {
       icon: "emoji-smile",
       title: "Calidez Humana",
       description: "Trato amable, empático y humano hacia nuestros pacientes.",
-      image: "/images/calidez.jpg"
+      image: "/images/calidez.jpeg"
     },
     {
       icon: "cpu",
       title: "Tecnología Moderna",
       description: "Contamos con equipos de última generación para un diagnóstico preciso.",
-      image: "/images/tecnologia.jpg"
+      image: "/images/tecnologia.jpeg"
     },
     {
       icon: "people-fill",
       title: "Profesionales Expertos",
       description: "Médicos altamente capacitados y con amplia experiencia.",
-      image: "/images/expertos.jpg"
+      image: "/images/expertos.jpeg"
     },
     {
       icon: "stopwatch",
       title: "Atención Rápida",
       description: "Procesos ágiles que reducen tiempos de espera.",
-      image: "/images/rapida.jpg"
+      image: "/images/rapida.jpeg"
     }
   ];
 
@@ -68,7 +68,7 @@ function Home() {
       {/* CAROUSEL */}
       <Carousel controls={false} indicators={true}>
         <Carousel.Item>
-          <img className="d-block w-100" src="/images/banner1.jpg" alt="Banner 1" style={{ height: '400px', objectFit: 'cover' }} />
+          <img className="d-block w-100" src="/images/banner1.jpg" alt="Banner 1" style={{ height: '500px', objectFit: 'cover' }} />
           <Carousel.Caption>
             <h2 className="text-light">Miércoles de Bienestar</h2>
             <p>Cuidamos tu salud con los mejores especialistas</p>
@@ -76,7 +76,7 @@ function Home() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img className="d-block w-100" src="/images/banner2.jpg" alt="Banner 2" style={{ height: '400px', objectFit: 'cover' }} />
+          <img className="d-block w-100" src="/images/banner2.jpg" alt="Banner 2" style={{ height: '500px', objectFit: 'cover' }} />
           <Carousel.Caption>
             <h2 className="text-light">Agenda tu cita ahora</h2>
             <p>Fácil, rápido y sin complicaciones</p>
@@ -93,7 +93,7 @@ function Home() {
             { icon: "calendar3", title: "Reserva una cita", desc: "Agenda desde casa", link: "/reservar", label: "Reservar" },
             { icon: "person-vcard", title: "Staff Médico", desc: "Conoce a nuestros especialistas", link: "/staffMedico", label: "Conoce al Staff" },
             { icon: "journal-medical", title: "Servicios", desc: "Consulta nuestros servicios", link: "/servicios", label: "Conoce más" },
-            { icon: "people", title: "Especialidad", desc: "Atención integral para ti", link: "/especialidad", label: "Ver más" },
+            { icon: "people", title: "Pacientes", desc: "Atención integral para ti", link: "/pacientes", label: "Ver más" },
           ].map((item, idx) => (
             <div className="col-md-3" key={idx}>
               <div className="servicio-card text-center h-100">
