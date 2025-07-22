@@ -23,6 +23,9 @@ import StaffMedico from './pages/StaffMedico.jsx';
 import Servicios from './pages/Servicios.jsx';
 import Contacto from './pages/Contacto.jsx';
 import SobreNosotros from './pages/SobreNosotros.jsx';
+import Reservar from './pages/Reservar.jsx';
+import ProgramasDePrevencion from './pages/Programas.jsx';
+import Programas from './pages/Programas.jsx';
 
 function App() {
   return (
@@ -38,6 +41,8 @@ function App() {
       <Route path="/servicios" element={<Servicios />} />
       <Route path="/contacto" element={<Contacto />} />
       <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+      <Route path="/reservar" element={<Reservar />} />
+      <Route path="/programas" element={<Programas />} />
 
       {/* Rutas protegidas para PACIENTE */}
       <Route element={<PrivateRoute allowedRoles={['paciente']} />}>
