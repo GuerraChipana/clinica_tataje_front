@@ -9,7 +9,7 @@ const AdminHeader = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    navigate('/login/personal');
+    navigate('/admin');
   };
 
   return (

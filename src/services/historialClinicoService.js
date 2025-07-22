@@ -22,6 +22,3 @@ export const obtenerHistorialPorID = async (dtoBuscarCita) => {
   const response = await axios.post(`${API_URL}/buscar`, dtoBuscarCita, getAuthHeaders());
   return response.data;
 };
-// BODY  {
-//     "id_paciente":1
-// }

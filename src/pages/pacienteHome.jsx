@@ -78,8 +78,9 @@ const PacienteHome = () => {
   };
 
   const handleCerrarSesion = () => {
+    localStorage.removeItem("token_expiracion");
     localStorage.removeItem("token");
-    navigate("/paciente-inicio");
+    navigate("/login-paciente");
   };
 
   const handleCitaCreada = () => setShowModalCrearCita(false);
