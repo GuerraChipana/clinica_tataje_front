@@ -11,37 +11,35 @@ function Header() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
+        {/* Menú para pantallas grandes */}
         <div className="collapse navbar-collapse d-none d-lg-flex">
-  <ul className="navbar-nav ms-auto">
-    {["Inicio", "Sobre Nosotros", "Especialidad", "Contacto", "Perfil"].map((item, i) => {
-      let path = "/";
+          <ul className="navbar-nav ms-auto">
+            {["Inicio", "Sobre Nosotros", "Especialidad", "Contacto", "Perfil"].map((item, i) => {
+              let path = "/";
+              if (item === "Inicio") {
+                path = "/";
+              } else if (item === "Perfil") {
+                path = "/paciente-inicio";
+              } else {
+                path = "/" + item.toLowerCase().replace(" ", "-");
+              }
 
-      if (item === "Inicio") {
-        path = "/";
-      } else if (item === "Perfil") {
-        path = "/paciente-inicio";
-      } else {
-        path = "/" + item.toLowerCase().replace(" ", "-");
-      }
+              return (
+                <li className="nav-item" key={i}>
+                  <Link className="nav-link text-white" to={path}>
+                    {item}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
 
-      return (
-        <li className="nav-item" key={i}>
-          <Link className="nav-link text-white" to={path}>
-            {item}
+          <Link to="/login-paciente" className="btn btn-light ms-3">
+            Iniciar Sesión
           </Link>
-        </li>
-      );
-    })}
-  </ul>
+        </div>
 
-  {/* Botón Iniciar Sesión sin empujar a la izquierda */}
-  <Link to="/login-paciente" className="btn btn-light ms-3">
-    Iniciar Sesión
-  </Link>
-</div>
-
-
-
+        {/* Menú para pantallas pequeñas (offcanvas) */}
         <div className="offcanvas offcanvas-end text-bg-dark d-lg-none" id="offcanvasNavbar">
           <div className="offcanvas-header">
             <h5 className="offcanvas-title">Menú</h5>
@@ -54,9 +52,8 @@ function Header() {
               <li className="nav-item"><Link className="nav-link text-white" to="/especialidad">Especialidades</Link></li>
               <li className="nav-item"><Link className="nav-link text-white" to="/contacto">Contacto</Link></li>
               <li className="nav-item"><Link className="nav-link text-white" to="/paciente-inicio">Perfil</Link></li>
-
             </ul>
-            <Link to="/login-paciente" className="btn mt-3 w-100 btn-dark">Iniciar Sesión</Link>
+            <Link to="/login-paciente" className="btn mt-3 w-100 btn-light">Iniciar Sesión</Link>
           </div>
         </div>
       </div>
