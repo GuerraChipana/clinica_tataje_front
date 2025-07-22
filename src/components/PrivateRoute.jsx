@@ -9,7 +9,7 @@ const PrivateRoute = ({ allowedRoles }) => {
     if (allowedRoles.includes('paciente')) {
       return <Navigate to="/login-paciente" replace />;
     } else {
-      return <Navigate to="/login/personal" replace />;
+      return <Navigate to="/admin" replace />;
     }
   }
 

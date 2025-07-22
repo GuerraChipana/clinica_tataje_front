@@ -33,7 +33,7 @@ function App() {
       <Route path="/medicos" element={<Doctores />} /> {/* Aquí accede Doctores.jsx */}
       <Route path="/login-paciente" element={<LoginPaciente />} />
       <Route path="/registro-paciente" element={<RegistrarsePaciente />} />
-      <Route path="/login/personal" element={<LoginAdm />} />
+      <Route path="/admin" element={<LoginAdm />} />
       <Route path="/staffmedico" element={<StaffMedico/>} />
       <Route path="/servicios" element={<Servicios />} />
       <Route path="/contacto" element={<Contacto />} />
