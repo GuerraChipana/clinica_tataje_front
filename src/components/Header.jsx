@@ -12,7 +12,7 @@ function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    navigate('/');
+    navigate('/login-paciente');
     setIsLoggedIn(false);
   };
 
